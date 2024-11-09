@@ -1,0 +1,57 @@
+.tabMenuContainer {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #ddd;
+  overflow: hidden;
+}
+
+.iconContainer {
+  height: 2rem;
+}
+
+.tabItem {
+  padding: 10px 20px;
+  min-width: 80px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  flex-direction: column;
+  position: relative;
+  background: white linear-gradient(0deg, #dedcdc 0%, white 45%, white 50%, white 80%, #eeeeee 100%);
+
+  .indicator {
+    background-color: #2BB9E5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    transition: height 0.3s ease;
+  }
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.tabItem.active {
+  box-shadow: inset 1px 1px 29px 0px rgba(0,0,0,0.25);
+  background: white;
+  .tabLabel {
+    font-weight: bold;
+    color: #2BB9E5;
+  }
+
+  .indicator {
+    height: 5px;
+  }
+}
+
+.iconPlaceholder {
+  margin-right: 10px;
+}
+
+.tabLabel {
+  font-size: 0.75rem;
+}

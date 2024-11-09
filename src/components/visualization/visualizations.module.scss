@@ -1,0 +1,31 @@
+.roundSquare {
+  width: 15px;
+  height: 30px;
+  border: 1px solid rgba(255,255,255, 0.5);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-end;
+  flex-wrap: wrap;
+  border-radius: 0.15rem;
+  overflow: hidden;
+}
+
+.roundsDisplay {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.roundIndicator {
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 100%;
+  transition: height 0.3s;
+}
+
+.completedRound {
+  .roundIndicator {
+    display: none;
+  }
+}

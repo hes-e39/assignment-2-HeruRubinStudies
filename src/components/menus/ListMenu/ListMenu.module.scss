@@ -1,0 +1,32 @@
+.listContainer {
+  list-style-type: none;
+  padding: 0;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: #333;
+  margin-left: 10px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.iconContainer {
+  font-size: 18px;
+  color: #555;
+  height: 3rem;
+  width: 3rem;
+}
