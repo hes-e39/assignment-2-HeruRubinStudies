@@ -1,0 +1,34 @@
+.flexVert {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexVertCenter {
+  align-items: center;
+}
+
+.flexHorzCenter{
+  justify-content: center;
+}
+
+.timerDisplay {
+  font-size: 11vh;
+  text-align: center;
+  font-family: itc-avant-garde-gothic-pro, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: white;
+}
+
+.dataFont{
+  font-family: "itc-avant-garde-gothic-pro", sans-serif;
+  font-style: normal;
+}
+
+.fontBold{
+  font-weight: 700;
+}
+
+.fontBook{
+  font-weight: 300;
+}

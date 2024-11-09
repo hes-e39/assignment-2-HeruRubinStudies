@@ -1,0 +1,37 @@
+.mainContainer{
+  height: 100vh;
+}
+
+.spacer{
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.navListMenu{
+  z-index: 100;
+  li{
+    &:hover{
+      a{
+        color: #0d1117;
+      }
+      svg g{
+        stroke: #0d1117;
+      }
+      svg rect{
+        fill: #0d1117;
+      }
+    }
+  }
+  li a{
+    color: white;
+  }
+  svg{
+    margin-right: 1rem;
+  }
+  svg g{
+    stroke: white;
+  }
+  svg rect{
+    fill: white;
+  }
+}

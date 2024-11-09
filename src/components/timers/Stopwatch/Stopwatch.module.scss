@@ -1,0 +1,72 @@
+.stopwatch-container {
+  text-align: center;
+  position: relative;
+}
+
+.lapsControlsArea{
+  display: flex;
+  flex-direction: column;
+}
+
+.lapsContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
+.lapActionsArea{
+  display: flex;
+  gap: 0.25rem;
+}
+
+.lap-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.lap-list li {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.extra-laps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.extra-laps button {
+  margin-left: 8px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background-color: #2BB9E5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #1a8bb8;
+  }
+}
+
+
+.allLapsList{
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+  overflow-y: auto;
+  max-height: 30vh;
+  li{
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+}
+
+

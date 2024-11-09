@@ -1,0 +1,28 @@
+.countdown-container {
+  text-align: center;
+}
+.countDownArea{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 12px;
+}
+
+.progressBarContainer{
+  width: 100%;
+  height: 20px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+  position: relative;
+}
+
+.progressBar{
+  height: 100%;
+  background-color: #2BB9E5;
+  transition: width 0.1s linear;
+}
