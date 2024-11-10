@@ -17,9 +17,9 @@ const TimerSequence: React.FC = () => {
     const { milliseconds, isRunning, start, pause, reset } = useTimer();
 
     const timerSequence: timerSequenceItem[]  = [
-        { type: "Countdown", label : "Warm up", initialTime: 10000 },
-        { type: "Tabata", label : "stretch", rounds: 3, workDuration: 4000, breakDuration: 2000 },
-        { type: "Countdown", label : "push ups", initialTime: 5000 },
+        { type: "countdown",icon:"countdown", label : "Warm up", initialTime: 10000 },
+        { type: "tabata", icon:"tabata", label : "stretch", rounds: 3, workDuration: 4000, breakDuration: 2000 },
+        { type: "countdown", icon:"countdown", label : "push ups", initialTime: 5000 },
     ];
 
     const currentTimerConfig = timerSequence[currentTimerIndex];
@@ -52,11 +52,11 @@ const TimerSequence: React.FC = () => {
 
     useEffect(() => {
         const isCountdownComplete =
-            currentTimerConfig.type === "Countdown" &&
+            currentTimerConfig.type === "countdown" &&
             milliseconds >= (currentTimerConfig.initialTime ?? 0);
 
         const isTabataComplete =
-            currentTimerConfig.type === "Tabata" &&
+            currentTimerConfig.type === "tabata" &&
             (currentTimerConfig.rounds ?? 0) <= 0;
 
         if (isCountdownComplete || isTabataComplete) {
@@ -72,7 +72,7 @@ const TimerSequence: React.FC = () => {
 
             {isSequenceRunning && (
                 <>
-                    {currentTimerConfig.type === "Countdown" && (
+                    {currentTimerConfig.type === "countdown" && (
                         <Countdown
                             initialTime={currentTimerConfig.initialTime ?? 0}
                             milliseconds={milliseconds}
@@ -82,7 +82,7 @@ const TimerSequence: React.FC = () => {
                             start={start}
                         />
                     )}
-                    {currentTimerConfig.type === "Tabata" && (
+                    {currentTimerConfig.type === "tabata" && (
                         <Tabata
                             totalRoundsExternal={currentTimerConfig.rounds}
                             workDurationExternal={currentTimerConfig.workDuration}
@@ -96,7 +96,7 @@ const TimerSequence: React.FC = () => {
                     )}
                 </>
             )}
-            <TButton classes={seqStyles.skip} btnType="small-rect" label={isSequenceRunning ? "Skip" : "Start Sequence"} actionFunc={isSequenceRunning ? skipToNextTimer : startSequence} />
+            <TButton classes={isSequenceRunning ? seqStyles.skip : ""} btnType="small-rect" label={isSequenceRunning ? "Skip" : "Start Sequence"} actionFunc={isSequenceRunning ? skipToNextTimer : startSequence} />
 
             <TimerTracker
                 timerSequence={timerSequence}

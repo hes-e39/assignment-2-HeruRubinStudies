@@ -7,6 +7,7 @@ import Logotype from "../../Graphics/Branding/Logotype/Logotype.tsx";
 
 export interface MenuProps {
     children?: React.ReactNode;
+    isOpenExternal? : boolean;
 }
 
 const NavigationMenu: React.FC<MenuProps> = ({children}) => {

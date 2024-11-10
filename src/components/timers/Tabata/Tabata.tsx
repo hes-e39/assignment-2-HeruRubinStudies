@@ -86,7 +86,7 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
     }, [milliseconds, isRunning, isPomodoroStopped, roundsLeft, totalRounds, phase, phaseStartTime, workDuration, breakDuration]);
 
     return (
-        <div className={`${styles.tabataContainer} ${classes ?? ""}`}>
+        <div className={`${styles.tabataContainer}  ${classes ?? ""}`}>
             {roundsLeft > 0 ? (
                 <>
                     <h2>

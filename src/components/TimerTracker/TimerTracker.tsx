@@ -1,15 +1,18 @@
-import type React from "react";
-import styles from "./TimerTracker.module.scss";
-import type {timerType} from "../../views/Timers/TimersView.tsx";
+import type React from 'react';
+import styles from './TimerTracker.module.scss';
+import type { timerType } from '../../views/Timers/TimersView.tsx';
+import type { iconGraphic } from '../Icons/Icon.tsx';
+import Icon from '../Icons/Icon.tsx';
 
 export type timerSequenceItem = {
     type: timerType;
     initialTime?: number;
     rounds?: number;
-    workDuration? : number;
-    breakDuration? : number;
-    label? : string;
-}
+    workDuration?: number;
+    breakDuration?: number;
+    label?: string;
+    icon?: iconGraphic;
+};
 
 interface TimerTrackerProps {
     timerSequence: timerSequenceItem[];
@@ -23,13 +26,15 @@ const TimerTracker: React.FC<TimerTrackerProps> = ({ timerSequence, currentTimer
             {timerSequence.map((item, index) => (
                 <div
                     key={index}
-                    className={`${styles.timerSquare} ${
-                        index < currentTimerIndex ? styles.completed : ""
-                    } ${index === currentTimerIndex ? styles.active : ""}`}
+                    className={`${styles.timerSquare} ${index < currentTimerIndex ? styles.completed : ''} ${index === currentTimerIndex ? styles.active : ''}`}
                     onClick={() => onTimerSelect(index)}
                 >
-                    <h1>{item.label ?? ""}</h1>
-                    <h2>{item.type.toString()}</h2>
+                    {item.icon && <Icon iconName={item.icon} classes={styles.icon} />}
+
+                    <div>
+                        <h1>{item.label ?? ''}</h1>
+                        <h2>{item.type.toString()}</h2>
+                    </div>
                 </div>
             ))}
         </div>

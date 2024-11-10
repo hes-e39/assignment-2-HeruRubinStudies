@@ -1,6 +1,5 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import styles from '../timer-common.module.scss';
 import commonTimerStyles from '../timer-common.module.scss';
 import FormattedTimeDisplay from "../../generic/FormattedTimeDisplay";
 import TimerControls from "../../menus/TimerControls/TimerControls";
@@ -71,7 +70,7 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
     }, [milliseconds, isRunning, isXYStopped, roundsLeft, roundStartTime, roundDuration, totalRounds]);
 
     return (
-        <div className={`${styles.actionArea} ${ classes ?? ""}`}>
+        <div className={` ${ classes ?? ""}`}>
             {roundsLeft > 0 ? (
                 <>
                     <FormattedTimeDisplay milliseconds={remainingTime} />

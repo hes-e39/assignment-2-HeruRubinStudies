@@ -42,7 +42,7 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
     return (
-        <div className={`${styles.stopwatchContainer} ${classes ?? ""}`}>
+        <div className={`${styles.stopwatchContainer}   ${classes ?? ""}`}>
             <FormattedTimeDisplay milliseconds={milliseconds} />
             <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
                 <div className={styles.lapsControlsArea}>

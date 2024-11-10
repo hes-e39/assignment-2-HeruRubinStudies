@@ -11,7 +11,7 @@ import commonStyles from "../../common-styles/common-styles.module.scss"
 import mainStyles from "../../main.module.scss";
 
 
-export type timerType = "XY" | "Stopwatch" | "Countdown" | "Tabata";
+export type timerType = "XY" | "stopwatch" | "countdown" | "tabata";
 
 const Timer: React.FC = () => {
     const tabMenuItems : MenuItem[] = [
@@ -20,7 +20,7 @@ const Timer: React.FC = () => {
             iconName: 'stopwatch',
             onClick: () => {
                 reset()
-                setActiveTimer("Stopwatch")
+                setActiveTimer("stopwatch")
             },
         },
         {
@@ -28,7 +28,7 @@ const Timer: React.FC = () => {
             iconName: 'countdown',
             onClick: () => {
                 reset()
-                setActiveTimer("Countdown")
+                setActiveTimer("countdown")
             },
         },
         {
@@ -44,26 +44,26 @@ const Timer: React.FC = () => {
             iconName: 'tabata',
             onClick: () =>{
                 reset()
-                setActiveTimer("Tabata")
+                setActiveTimer("tabata")
             },
         },
     ];
     const { milliseconds, isRunning, start, pause, reset } = useTimer();
-    const [activeTimer, setActiveTimer] = useState<timerType>("Stopwatch");
+    const [activeTimer, setActiveTimer] = useState<timerType>("stopwatch");
 
     return (
         <div className={`${mainStyles.mainContainer} ${commonStyles.flexVertCenter} ${commonStyles.flexVert} ${commonStyles.flexHorzCenter}`}>
             <div>
-                {activeTimer === "Stopwatch" && (
+                {activeTimer === "stopwatch" && (
                     <Stopwatch milliseconds={milliseconds} isRunning={isRunning}  start={start} pause={pause} reset={reset}  />
                 )}
-                {activeTimer === "Countdown" && (
+                {activeTimer === "countdown" && (
                     <Countdown milliseconds={milliseconds} initialTime={6000} isRunning={isRunning}  start={start} pause={pause} reset={reset} />
                 )}
                 {activeTimer === "XY" && (
                     <XY milliseconds={milliseconds} isRunning={isRunning} start={start} pause={pause} reset={reset} />
                 )}
-                {activeTimer === "Tabata" && (
+                {activeTimer === "tabata" && (
                     <Tabata milliseconds={milliseconds} isRunning={isRunning}  start={start} pause={pause} reset={reset}  />
                 )}
             </div>

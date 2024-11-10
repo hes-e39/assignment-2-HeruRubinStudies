@@ -65,7 +65,7 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
     };
 
     return (
-        <div className={`${styles.countdownContainer} ${classes ?? ""}`}>
+        <div className={`${styles.countdownContainer}  ${classes ?? ""}`}>
             {remainingTime >= 0 ? (
                 <>
                     <FormattedTimeDisplay milliseconds={remainingTime} />
