@@ -8,6 +8,7 @@ import TimersView from './views/Timers/TimersView.tsx';
 import DocumentationView from './views/Documentation/DocumentationView.tsx';
 import NavMenu from './components/menus/NavMenu/NavMenu.tsx';
 import ListMenu from './components/menus/ListMenu/ListMenu.tsx';
+import TimerSequence from "./components/TimerSequence/TimerSequence.tsx";
 
 const PageIndex = () => {
     return (
@@ -18,6 +19,7 @@ const PageIndex = () => {
                     menuItems={[
                         { label: 'Timers', link: '/', iconName: 'timers' },
                         { label: 'Documentation', link: '/docs', iconName: 'documentation' },
+                        { label: 'Timer Sequence', link: '/sequence', iconName: 'timers' }, // Add this line
                     ]}
                 />
             </NavMenu>
@@ -34,6 +36,10 @@ const router = createHashRouter([
             {
                 index: true,
                 element: <TimersView />,
+            },
+            {
+                path: '/sequence',
+                element: <TimerSequence />,
             },
             {
                 path: '/docs',

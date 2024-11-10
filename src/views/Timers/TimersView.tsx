@@ -11,7 +11,7 @@ import commonStyles from "../../common-styles/common-styles.module.scss"
 import mainStyles from "../../main.module.scss";
 
 
-type timerType = "XY" | "Stopwatch" | "Countdown" | "Tabata";
+export type timerType = "XY" | "Stopwatch" | "Countdown" | "Tabata";
 
 const Timer: React.FC = () => {
     const tabMenuItems : MenuItem[] = [

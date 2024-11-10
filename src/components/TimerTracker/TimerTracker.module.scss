@@ -1,0 +1,43 @@
+.trackerContainer {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.timerSquare {
+  width: 100px;
+  height: 60px;
+  background-color: lightgray;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 0.25rem;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  h1, h2{
+    margin: 0;
+    text-transform: uppercase;
+  }
+  h1{
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+  h2{
+    font-size: 0.75rem;
+  }
+}
+
+.timerSquare.active {
+  background-color: #2BB9E5;
+}
+
+.timerSquare.completed {
+  background-color: #87CEEB;
+}

@@ -14,12 +14,15 @@ interface TabataProps extends TimerFuncProps {
     milliseconds: number;
     isRunning: boolean;
     classes? : string;
+    totalRoundsExternal?: number;
+    workDurationExternal? : number;
+    breakDurationExternal? : number;
 }
 
-const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, start, classes }) => {
-    const [totalRounds, setTotalRounds] = useState(5); // Configurable total rounds
-    const [workDuration, setWorkDuration] = useState(10 * 1000); // Configurable work duration in ms
-    const [breakDuration, setBreakDuration] = useState(0.5 * 10 * 1000); // Configurable break duration in ms
+const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, start, classes, totalRoundsExternal, workDurationExternal, breakDurationExternal }) => {
+    const [totalRounds, setTotalRounds] = useState(totalRoundsExternal ?? 5); // Configurable total rounds
+    const [workDuration, setWorkDuration] = useState(workDurationExternal ?? 0); // Configurable work duration in ms
+    const [breakDuration, setBreakDuration] = useState(breakDurationExternal ?? 0); // Configurable break duration in ms
 
     const [roundsLeft, setRoundsLeft] = useState(totalRounds);
     const [phase, setPhase] = useState<'Work' | 'Break'>('Work');
