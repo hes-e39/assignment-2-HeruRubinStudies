@@ -1,6 +1,5 @@
-.countdown-container {
-  text-align: center;
-}
+
+
 .countDownArea{
   width: 100%;
   display: flex;
@@ -19,10 +18,12 @@
   overflow: hidden;
   margin: 10px 0;
   position: relative;
+  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .progressBar{
   height: 100%;
-  background-color: #2BB9E5;
   transition: width 0.1s linear;
+  background: linear-gradient(180deg, #45a3c0 0%, #2BB9E5 20%, hsl(194 78% 68% / 1) 50%, #2BB9E5 80%, #4389a0 100%, transparent);
 }

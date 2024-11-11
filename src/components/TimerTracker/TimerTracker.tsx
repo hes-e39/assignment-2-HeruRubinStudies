@@ -24,16 +24,18 @@ const TimerTracker: React.FC<TimerTrackerProps> = ({ timerSequence, currentTimer
     return (
         <div className={styles.trackerContainer}>
             {timerSequence.map((item, index) => (
-                <div
-                    key={index}
-                    className={`${styles.timerSquare} ${index < currentTimerIndex ? styles.completed : ''} ${index === currentTimerIndex ? styles.active : ''}`}
-                    onClick={() => onTimerSelect(index)}
-                >
-                    {item.icon && <Icon iconName={item.icon} classes={styles.icon} />}
+                <div  key={index} className={styles.sequenceItem}>
+                    {item.icon && <Icon iconName={item.icon} classes={styles.iconTrack}/>}
+                    <div
+                        className={`${styles.timerSquare} ${index < currentTimerIndex ? styles.completed : ''} ${index === currentTimerIndex ? styles.active : ''}`}
+                        onClick={() => onTimerSelect(index)}
+                    >
 
-                    <div>
-                        <h1>{item.label ?? ''}</h1>
-                        <h2>{item.type.toString()}</h2>
+
+                        <div>
+                            <h1>{item.label ?? ''}</h1>
+                            <h2>{item.type.toString()}</h2>
+                        </div>
                     </div>
                 </div>
             ))}

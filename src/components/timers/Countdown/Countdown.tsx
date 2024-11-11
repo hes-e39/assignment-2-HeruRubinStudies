@@ -6,7 +6,6 @@ import CompletionMessage from "../../visualization/CompletionMessage/CompletionM
 
 import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
 import styles from './Countdown.module.scss';
-import commonStyles from '../../../main.module.scss';
 import commonTimerStyles from "../timer-common.module.scss";
 import Modal from "../../generic/Modal/Modal.tsx";
 import TButton from "../../generic/Button/TButton.tsx";
@@ -65,22 +64,22 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
     };
 
     return (
-        <div className={`${styles.countdownContainer}  ${classes ?? ""}`}>
+        <div className={`${commonTimerStyles.timerContainer} ${classes ?? ""}`}>
             {remainingTime >= 0 ? (
                 <>
                     <FormattedTimeDisplay milliseconds={remainingTime} />
                     <TimerControls reset={resetCountdown} isRunning={isRunning} pause={pause} start={start}>
                         <div className={styles.countDownArea}>
-                            <TButton actionFunc={toggleModal} classes={commonStyles.spacer} btnType="small-rect" label="Configure"/>
                             <div className={styles.progressBarContainer}>
                                 <div
                                     className={styles.progressBar}
                                     style={{width: `${progressPercentage}%`}}
                                 />
                             </div>
-                            <TButton actionFunc={toggleModal} btnType="small-rect" label="Configure"/>
                         </div>
                     </TimerControls>
+                    <TButton actionFunc={toggleModal} classes={`${commonTimerStyles.config} `} btnType="small-rect" label="Configure"/>
+
                 </>
             ) : (
                 <CompletionMessage

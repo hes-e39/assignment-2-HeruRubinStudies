@@ -70,7 +70,7 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
     }, [milliseconds, isRunning, isXYStopped, roundsLeft, roundStartTime, roundDuration, totalRounds]);
 
     return (
-        <div className={` ${ classes ?? ""}`}>
+        <div className={`${commonTimerStyles.timerContainer} ${ classes ?? ""}`}>
             {roundsLeft > 0 ? (
                 <>
                     <FormattedTimeDisplay milliseconds={remainingTime} />
@@ -84,9 +84,9 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
                                 workDuration={roundDuration}
                                 remainingTime={remainingTime}
                             />
-                            <TButton label="configure" btnType="small-rect" actionFunc={toggleModal} />
                         </div>
                     </TimerControls>
+                    <TButton label="Configure" btnType="small-rect" classes={commonTimerStyles.config} actionFunc={toggleModal} />
                 </>
             ) : (
                 <CompletionMessage

@@ -20,6 +20,8 @@ const TButton : React.FC<TButtonProps> = ({label, icon, flair, btnType, actionFu
         switch (hoverAni){
             case "grow":
                 return styles.growAni
+            default:
+                return "";
         }
     }
 
@@ -27,6 +29,8 @@ const TButton : React.FC<TButtonProps> = ({label, icon, flair, btnType, actionFu
         switch (flair){
             case "shimmer":
                 return styles.shimmer
+            default:
+                return "";
             //add more flair here
         }
     }

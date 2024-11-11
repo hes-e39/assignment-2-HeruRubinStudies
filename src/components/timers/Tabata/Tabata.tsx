@@ -104,9 +104,9 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
                                 remainingTime={remainingTime}
                                 breakDuration={breakDuration}
                             />
-                            <TButton actionFunc={toggleModal} label="Configure" btnType="small-rect" />
                         </div>
                     </TimerControls>
+                    <TButton classes={commonTimerStyles.config} actionFunc={toggleModal} label="Configure" btnType="small-rect" />
                 </>
             ) : (
                 <CompletionMessage totalRounds={totalRounds} roundDuration={workDuration} onRepeat={resetTabata} />
