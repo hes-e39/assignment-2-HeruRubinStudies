@@ -3,6 +3,7 @@ import styles from './TimerTracker.module.scss';
 import type { timerType } from '../../views/Timers/TimersView.tsx';
 import type { iconGraphic } from '../Icons/Icon.tsx';
 import Icon from '../Icons/Icon.tsx';
+import {formatTimerNumber} from "../../utils/helpers.ts";
 
 export type timerSequenceItem = {
     type: timerType;
@@ -25,16 +26,17 @@ const TimerTracker: React.FC<TimerTrackerProps> = ({ timerSequence, currentTimer
         <div className={styles.trackerContainer}>
             {timerSequence.map((item, index) => (
                 <div  key={index} className={styles.sequenceItem}>
-                    {item.icon && <Icon iconName={item.icon} classes={styles.iconTrack}/>}
+
                     <div
                         className={`${styles.timerSquare} ${index < currentTimerIndex ? styles.completed : ''} ${index === currentTimerIndex ? styles.active : ''}`}
                         onClick={() => onTimerSelect(index)}
                     >
-
-
                         <div>
-                            <h1>{item.label ?? ''}</h1>
-                            <h2>{item.type.toString()}</h2>
+                            <h2>{item.label ?? ''}</h2>
+                            <div className={styles.labelArea}>
+                                <h2>{formatTimerNumber(index + 1)}</h2>
+                                {item.icon && <Icon iconName={item.icon} classes={styles.iconTrack} filledClasses={styles.filled} filledHighlightsClasses={styles.filled} strokedClasses={styles.stroked}/>}
+                            </div>
                         </div>
                     </div>
                 </div>

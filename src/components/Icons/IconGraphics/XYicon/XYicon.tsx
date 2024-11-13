@@ -1,12 +1,13 @@
 import commonIconStyles from '../../commonIcons.module.scss';
 import type React from 'react';
+import type {IconItemProps} from "../../Icon.tsx";
 
-const XYicon: React.FC = () => {
+const XYicon: React.FC<IconItemProps> = ({classes, filledClasses, strokedClasses}) => {
     return (
-        <svg viewBox="0 0 60.58 60.58" width="100%" height="100%">
+        <svg viewBox="0 0 60.58 60.58" width="100%" height="100%" className={`${classes}`}>
             <title>XYicon</title>
-            <g className={`${commonIconStyles.stroked} ${commonIconStyles.primaryStrokeColor}`}>
-                <circle className={`${commonIconStyles.filledHighlight}`} cx="30.71" cy="34.57" r="24.04" />
+            <g className={`${commonIconStyles.stroked} ${commonIconStyles.primaryStrokeColor} ${strokedClasses}`}>
+                <circle className={`${commonIconStyles.filledHighlight} ${filledClasses}`} cx="30.71" cy="34.57" r="24.04" />
                 <rect x="26.56" y="2.98" width="8.3" height="4.77" />
                 <line x1="30.71" y1="7.98" x2="30.71" y2="10.53" />
                 <line x1="31.25" y1="42.06" x2="31.25" y2="53.58" />

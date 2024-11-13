@@ -18,8 +18,8 @@ const PageIndex = () => {
                     classes={mainStyles.navListMenu}
                     menuItems={[
                         { label: 'Timers', link: '/', iconName: 'timers' },
-                        { label: 'Documentation', link: '/docs', iconName: 'documentation' },
                         { label: 'Timer Sequence', link: '/sequence', iconName: 'timers' },
+                        { label: 'Documentation', link: '/docs', iconName: 'documentation' },
                     ]}
                 />
             </NavMenu>

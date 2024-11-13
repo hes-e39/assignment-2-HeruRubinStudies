@@ -1,3 +1,4 @@
-// Add helpers here. This is usually code that is just JS and not React code. Example: write a function that
-// calculates number of minutes when passed in seconds. Things of this nature that you don't want to copy/paste
-// everywhere.
+//formats numbers like 01, 02, 03, 04... for that sci-fi aesthetic
+export function formatTimerNumber(index: number): string {
+    return index < 10 ? `0${index}` : `${index}`;
+}

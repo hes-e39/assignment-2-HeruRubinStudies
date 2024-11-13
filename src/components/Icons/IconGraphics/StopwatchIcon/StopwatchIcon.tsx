@@ -1,10 +1,10 @@
 import type React from "react";
 import commonStyles from "../../commonIcons.module.scss";
-import type {StylingBase} from "../../../DataInterfaces/CommonInterfaces.tsx";
 import commonIconStyles from "../../commonIcons.module.scss";
+import type {IconItemProps} from "../../Icon.tsx";
 
 
-const StopwatchIcon : React.FC<StylingBase> = ({classes}) => {
+const StopwatchIcon : React.FC<IconItemProps> = ({classes}) => {
     return (
         <svg viewBox="0 0 60.58 60.58" width="100%" height="100%" className={`${commonStyles.icon} ${classes ?? ""}`}>
             <title>Stopwatch</title>

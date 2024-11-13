@@ -12,9 +12,17 @@
   padding: 0.5rem;
 }
 .iconTrack{
-  height: 50%;
-  width: 100%;
+  height: 2rem;
+  width: 2rem;
+  .filled{
+    fill: none !important;
+  }
+  .stroked{
+    stroke: white;
+  }
 }
+
+
 
 .sequenceItem{
   width: 100px;
@@ -26,13 +34,11 @@
 
 .timerSquare {
   width: 100px;
-  height: 40%;
+  height: auto;
   background-color: lightgray;
-  border: 1px solid #ccc;
   cursor: pointer;
   transition: background-color 0.3s;
   border-radius: 0.25rem;
-  padding: 6px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -48,6 +54,19 @@
   }
   h2{
     font-size: 0.75rem;
+    margin: 4px 4px 2px 4px;
+  }
+  .labelArea{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0d1117;
+    padding: 4px 6px;
+    h2{
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+    }
   }
   .indicator{
     display: none;

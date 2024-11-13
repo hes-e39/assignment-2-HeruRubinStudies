@@ -14,23 +14,34 @@ import MenuIcon from "./IconGraphics/MenuIcon/MenuIcon.tsx";
 
 export type iconGraphic = "countdown" | "stopwatch" | "xy" | "tabata" | "menu" | "timers" | "checkmark" | "documentation" | "close-x" | "plus";
 
-export interface IconProps extends StylingBase {
+export interface IconItemProps extends IconStyling {
+    classes?: string;
+}
+
+export interface IconStyling{
+    strokedClasses? : string;
+    strokedHighlightsClasses? : string;
+    filledClasses? : string;
+    filledHighlightsClasses? : string;
+}
+
+export interface IconProps extends StylingBase, IconStyling {
     iconName : iconGraphic;
 }
 
-const Icon : React.FC<IconProps> =({iconName, classes})=>{
+const Icon : React.FC<IconProps> =({iconName, classes, strokedClasses, filledClasses, filledHighlightsClasses, strokedHighlightsClasses})=>{
     const getIcon =()=>{
         switch (iconName){
             case "stopwatch":
-                return <StopwatchIcon/>;
+                return <StopwatchIcon filledClasses={filledClasses} strokedClasses={strokedClasses} filledHighlightsClasses={filledHighlightsClasses} strokedHighlightsClasses={strokedHighlightsClasses}/>;
             case "xy":
-                return <XYicon/>;
+                return <XYicon filledClasses={filledClasses} strokedClasses={strokedClasses} />;
             case "tabata":
-                return <TabataIcon />;
+                return <TabataIcon classes={classes} filledClasses={filledClasses} filledHighlightsClasses={filledHighlightsClasses} strokedClasses={strokedClasses} />;
             case "countdown":
-                return <CountdownIcon/>;
+                return <CountdownIcon classes={classes} filledHighlightsClasses={filledHighlightsClasses} strokedClasses={strokedClasses} strokedHighlightsClasses={strokedHighlightsClasses}/>;
             case "checkmark":
-                return <CheckmarkIcon/>;
+                return <CheckmarkIcon classes={strokedClasses}/>;
             case "documentation":
                 return <DocumentationIcon/>;
             case "timers":
