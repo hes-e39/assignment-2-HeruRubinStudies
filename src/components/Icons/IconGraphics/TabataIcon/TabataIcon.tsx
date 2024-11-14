@@ -17,7 +17,7 @@ const TabataIcon: React.FC<IconItemProps> = ({classes, filledClasses, filledHigh
                 </g>
                 <path className={`${commonIconStyles.filledPrimary} ${filledClasses}`}
                       d="M33.14,15.1H9.44c-1.87,0-3.39,1.52-3.39,3.39v3.97h27.1v-7.36Z"/>
-                <rect className={commonIconStyles.filledPrimary} x="6.04" y="36.15" width="39.25" height="8.95"/>
+                <rect className={`${commonIconStyles.filledPrimary} ${filledClasses}`} x="6.04" y="36.15" width="39.25" height="8.95"/>
                 <circle
                     className={`${filledHighlightsClasses} ${commonIconStyles.filledHighlight} ${commonIconStyles.stroked} ${commonIconStyles.primaryStrokeColor}`}
                     cx="43.84" cy="17.86" r="12.12"/>

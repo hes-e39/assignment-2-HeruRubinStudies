@@ -35,7 +35,16 @@ const TimerTracker: React.FC<TimerTrackerProps> = ({ timerSequence, currentTimer
                             <h2>{item.label ?? ''}</h2>
                             <div className={styles.labelArea}>
                                 <h2>{formatTimerNumber(index + 1)}</h2>
-                                {item.icon && <Icon iconName={item.icon} classes={styles.iconTrack} filledClasses={styles.filled} filledHighlightsClasses={styles.filled} strokedClasses={styles.stroked}/>}
+                                {
+                                    item.icon &&
+                                    <Icon iconName={item.icon}
+                                          classes={styles.iconTrack}
+                                          filledClasses={styles.filled}
+                                          filledHighlightsClasses={styles.filled}
+                                          strokedClasses={styles.stroked}
+                                          strokedHighlightsClasses={styles.stroked}
+                                    />
+                                }
                             </div>
                         </div>
                     </div>
