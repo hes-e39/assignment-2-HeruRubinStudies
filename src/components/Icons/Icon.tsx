@@ -42,7 +42,7 @@ const Icon : React.FC<IconProps> =({iconName, classes, strokedClasses, filledCla
             case "countdown":
                 return <CountdownIcon classes={classes} filledHighlightsClasses={filledHighlightsClasses} strokedClasses={strokedClasses} strokedHighlightsClasses={strokedHighlightsClasses}/>;
             case "checkmark":
-                return <CheckmarkIcon classes={strokedClasses}/>;
+                return <CheckmarkIcon classes={classes} strokedClasses={strokedClasses}/>;
             case "documentation":
                 return <DocumentationIcon/>;
             case "timers":

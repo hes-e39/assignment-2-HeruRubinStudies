@@ -10,7 +10,6 @@ const TabataIcon: React.FC<IconItemProps> = ({classes, filledClasses, filledHigh
         <title>Tabata</title>
         <path className={`${commonIconStyles.stroked} ${strokedClasses}`} d="M48.74,27.78v23.95c0,3.28-2.66,5.94-5.94,5.94H9.23c-3.28,0-5.94-2.66-5.94-5.94V18.16c0-3.28,2.66-5.94,5.94-5.94h22.5"/>
         <path id="filled_outer" className={`${commonIconStyles.filledHighlight} ${filledHighlightsClasses}`} d="M48.74,27.78v23.95c0,3.28-2.66,5.94-5.94,5.94H9.23c-3.28,0-5.94-2.66-5.94-5.94V18.16c0-3.28,2.66-5.94,5.94-5.94h22.5"/>
-
         <line className={`${commonIconStyles.stroked} ${strokedClasses}`} x1="3.73" y1="22.64" x2="32.73" y2="22.64"/>
         <line data-name="stroked" className={`${commonIconStyles.stroked} ${strokedClasses}`} x1="3.73" y1="45.67" x2="48.74" y2="45.67"/>
         <line data-name="stroked" className={`${commonIconStyles.stroked} ${strokedClasses}`} x1="3.73" y1="34.15" x2="48.74" y2="34.15"/>

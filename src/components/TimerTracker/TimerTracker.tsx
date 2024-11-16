@@ -31,8 +31,14 @@ const TimerTracker: React.FC<TimerTrackerProps> = ({ timerSequence, currentTimer
                         className={`${styles.timerSquare} ${index < currentTimerIndex ? styles.completed : ''} ${index === currentTimerIndex ? styles.active : ''}`}
                         onClick={() => onTimerSelect(index)}
                     >
-                        <div>
-                            <h2>{item.label ?? ''}</h2>
+                        <div className={styles.completeIndicator}>
+                            <Icon iconName="checkmark" classes={styles.completedMark}  strokedClasses={styles.completedStroke} />
+                        </div>
+                        <div className={styles.incomplete}>
+                            <div className={styles.indicator}>
+                                <h2>{item.label ?? ''}</h2>
+                                <div className={styles.activeIndicator} />
+                            </div>
                             <div className={styles.labelArea}>
                                 <h2>{formatTimerNumber(index + 1)}</h2>
                                 {
