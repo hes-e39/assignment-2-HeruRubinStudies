@@ -27,6 +27,7 @@ export interface IconStyling{
 
 export interface IconProps extends StylingBase, IconStyling {
     iconName : iconGraphic;
+    iconMode? : "dark-on-light" | "light-on-dark"
 }
 
 const Icon : React.FC<IconProps> =({iconName, classes, strokedClasses, filledClasses, filledHighlightsClasses, strokedHighlightsClasses})=>{
