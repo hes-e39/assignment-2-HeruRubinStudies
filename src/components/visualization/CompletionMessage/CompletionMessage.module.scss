@@ -3,6 +3,9 @@
   font-size: 1.2rem;
   text-align: center;
   margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .rectBtnLarge {
@@ -16,5 +19,28 @@
 
   &:hover {
     background-color: #1a8bb8;
+  }
+}
+
+.rounds{
+
+}
+
+.completionBanner{
+  background-color: #3f5760;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  .completeIcon{
+    width: 25px;
+    height: 25px;
+    border-radius: 100vw;
+    background-color: #2BB9E5;
+    .stroke{
+      stroke: white;
+      stroke-width: 3px;
+    }
   }
 }

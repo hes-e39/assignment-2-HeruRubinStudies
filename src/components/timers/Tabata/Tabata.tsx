@@ -94,8 +94,7 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
                     </h2>
                     <TimerControls reset={resetTabata} isRunning={isRunning} pause={pause} start={start}>
                         <div className={commonTimerStyles.readout}>
-                            <h2>Current Phase: {phase}</h2>
-                            <h2>Rounds Left: {roundsLeft}</h2>
+                            <h2>{phase}</h2>
                             <Rounds
                                 completedRounds={completedRounds}
                                 roundsLeft={roundsLeft}

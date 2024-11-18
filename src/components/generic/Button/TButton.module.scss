@@ -5,6 +5,7 @@
   transition: all 0.3s ease-in-out;
 }
 
+
 .rectBtnLarge {
   padding: 10px 20px;
   background-color: #2BB9E5;
@@ -84,6 +85,15 @@
   align-items: center;
   justify-content: center;
 }
+
+.config{
+  border-radius: 100vw;
+  background: #2a2e47;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+}
+
 
 .bounce{
   &:hover {

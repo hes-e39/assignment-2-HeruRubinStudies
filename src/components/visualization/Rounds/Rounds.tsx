@@ -43,6 +43,7 @@ const Rounds: React.FC<RoundsProps> = ({
                                         ? `${(remainingTime / workDuration) * 100}%`
                                         : "100%",
                                 backgroundColor: breakDuration && index % 2 !== 0 ? "#606060" : "#ddd",
+                                border: breakDuration && index % 2 !== 0 ? "1px dashed rgb(116 137 185 / 65%)" : "none",
                             }}
                         />
                     )}
