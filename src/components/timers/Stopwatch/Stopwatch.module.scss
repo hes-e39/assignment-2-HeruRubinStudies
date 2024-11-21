@@ -11,6 +11,15 @@
 .lapsContainer{
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  ul{
+    list-style: none;
+    li {
+      font-size: 1rem;
+      margin: 5px 0;
+    }
+  }
 }
 
 .hidden{
@@ -28,10 +37,6 @@
   margin-top: 10px;
 }
 
-.lap-list li {
-  font-size: 1rem;
-  margin: 5px 0;
-}
 
 .extra-laps {
   display: flex;
