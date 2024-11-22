@@ -8,7 +8,9 @@ import styles from './Stopwatch.module.scss';
 import Modal from "../../generic/Modal/Modal.tsx";
 import TButton from "../../generic/Button/TButton.tsx";
 import {formatTimerNumber} from "../../../utils/helpers.ts";
-import NumberedList from "../../visualization/NumberedList/NumberedList.tsx";
+import NumberedList from "../../NumberedList/NumberedList.tsx";
+import commonBtnStyles from "../../generic/Button/TButton.module.scss";
+import listStyles from "../../NumberedList/numberdList.module.scss";
 
 interface StopWatchProps extends TimerFuncProps {
     milliseconds: number;
@@ -47,7 +49,7 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
             <FormattedTimeDisplay milliseconds={milliseconds} />
             <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
                 <div className={styles.lapsControlsArea}>
-                    <TButton classes={`${isRunning ? '' : styles.hidden}`} btnType="small-rect" label="Lap" icon="plus" actionFunc={addLap} />
+                    <TButton iconClasses={{fillClass : commonBtnStyles.filled, strokeClass : commonBtnStyles.strokedIcon}} classes={`${isRunning ? '' : styles.hidden} ${commonBtnStyles.config} ${commonBtnStyles.darkOnLight}`} btnType="small-rect" label="Lap" icon="plus" actionFunc={addLap} />
 
                 </div>
             </TimerControls>
@@ -55,12 +57,12 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                 laps.length > 0 &&
                 <div className={styles.lapsContainer}>
                     <ul className={styles.lapList}>
-                         <NumberedList listItems={laps.slice(0, 3)}/>
+                         <NumberedList presets="light-on-dark" classes={styles.lapList} listItems={laps.slice(0, 3)}/>
                         {/* Render the 3 most recent laps */}
                         {
                             laps.length > 3 &&
-                            <li>
-                                <span>{laps.length - 3} more laps</span>
+                            <li className={`${listStyles.item} ${listStyles.lightOnDark}`}>
+                                <span className={`${listStyles.label}`}>{laps.length - 3} more laps</span>
                             </li>
                         }
                     </ul>
@@ -70,12 +72,12 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                         <div className={styles.lapActionsArea}>
                             {laps.length > 3 && (
                                 <div className={styles.extraLaps}>
-                                    <TButton btnType="small-rect" label="View All"  actionFunc={toggleModal} />
+                                    <TButton classes={commonBtnStyles.config} btnType="small-rect" label="View All"  actionFunc={toggleModal} />
                                 </div>
                             )}
                             {
                                 laps.length > 0 &&
-                                <TButton btnType="small-rect" label="Clear" icon="close-x" actionFunc={clearLaps} />
+                                <TButton classes={`${commonBtnStyles.config} ${listStyles.lightOnDark}`} iconClasses={{classes : commonBtnStyles.icon, strokeClass : commonBtnStyles.stroked}} btnType="small-rect" label="Clear" icon="close-x" actionFunc={clearLaps} />
                             }
                         </div>
                     }

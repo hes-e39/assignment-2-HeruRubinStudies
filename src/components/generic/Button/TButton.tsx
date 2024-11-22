@@ -12,9 +12,10 @@ export interface TButtonProps {
     label? : string;
     icon? : iconGraphic;
     classes? : string;
+    iconClasses? : {classes? : string, fillClass? : string, strokeClass? : string};
 }
 
-const TButton : React.FC<TButtonProps> = ({label, icon, flair, btnType, actionFunc, classes, hoverAni}) =>{
+const TButton : React.FC<TButtonProps> = ({label, icon, flair, btnType, actionFunc, classes, hoverAni, iconClasses}) =>{
 
     const getHoverAni=()=>{
         switch (hoverAni){
@@ -44,7 +45,7 @@ const TButton : React.FC<TButtonProps> = ({label, icon, flair, btnType, actionFu
                 }
                 {
                     icon &&
-                    <Icon iconName={icon} classes={styles.icon} />
+                    <Icon iconName={icon} classes={`${styles.icon} ${iconClasses && iconClasses.classes}`} filledClasses={iconClasses && iconClasses.fillClass} strokedClasses={iconClasses && iconClasses.strokeClass}  />
                 }
             </>
         )

@@ -6,6 +6,32 @@
 }
 
 
+
+.darkOnLight{
+  .icon{
+    .filled{
+      fill:#0d1117;
+    }
+    .stroked{
+      stroke: #0d1117;
+    }
+  }
+}
+
+.lightOnDark{
+  .icon{
+    .filled{
+      fill:white;
+    }
+    .stroked{
+      stroke: white;
+    }
+  }
+}
+.strokedIcon{
+  stroke: white;
+}
+
 .rectBtnLarge {
   padding: 10px 20px;
   background-color: #2BB9E5;
