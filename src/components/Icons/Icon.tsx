@@ -48,7 +48,7 @@ const Icon : React.FC<IconProps> =({iconName, classes, strokedClasses, filledCla
             case "timers":
                 return <TimersIcon />
             case "close-x":
-                return  <CloseX strokedClasses={strokedClasses} />
+                return  <CloseX classes={classes} strokedClasses={strokedClasses} />
             case "plus":
                 return <PlusIcon classes={classes} strokedClasses={strokedClasses} />
             case "menu":
