@@ -3,14 +3,15 @@ import { useState, useEffect } from 'react';
 import FormattedTimeDisplay from '../../visualization/FormattedTimeDisplay/FormattedTimeDisplay.tsx';
 import TimerControls from '../../menus/TimerControls/TimerControls';
 import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
-import Modal from "../../generic/Modal/Modal";
-import TButton from "../../generic/Button/TButton";
-import CompletionMessage from "../../visualization/CompletionMessage/CompletionMessage";
-import NumberedList from "../../NumberedList/NumberedList";
-import {formatTimerNumber} from "../../../utils/helpers";
+import Modal from '../../generic/Modal/Modal';
+import TButton from '../../generic/Button/TButton';
+import CompletionMessage from '../../visualization/CompletionMessage/CompletionMessage';
+import NumberedList from '../../NumberedList/NumberedList';
+import { formatTimerNumber } from '../../../utils/helpers';
 import styles from './Stopwatch.module.scss';
-import commonBtnStyles from "../../generic/Button/TButton.module.scss";
-import listStyles from "../../NumberedList/numberdList.module.scss";
+import commonBtnStyles from '../../generic/Button/TButton.module.scss';
+import listStyles from '../../NumberedList/numberdList.module.scss';
+import MenuContainer from '../../menus/MenuContainer/MenuContainer.tsx';
 
 interface StopWatchProps extends TimerFuncProps {
     milliseconds: number;
@@ -41,10 +42,7 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
 
     // Add a new lap
     const addLap = () => {
-        setLaps((prevLaps) => [
-            { numberLabel: formatTimerNumber(laps.length + 1), nameLabel: `${ formatTimerNumber(milliseconds)}` },
-            ...prevLaps,
-        ]);
+        setLaps(prevLaps => [{ numberLabel: formatTimerNumber(laps.length + 1), nameLabel: `${formatTimerNumber(milliseconds)}` }, ...prevLaps]);
     };
 
     const clearLaps = () => {
@@ -66,7 +64,7 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
     };
 
     return (
-        <div className={`${styles.stopwatchContainer} ${classes ?? ""}`}>
+        <div className={`${styles.stopwatchContainer} ${classes ?? ''}`}>
             {!isGoalReached ? (
                 <>
                     <FormattedTimeDisplay milliseconds={milliseconds} size="large" useSemicolon />
@@ -86,35 +84,25 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                             />
                         </div>
                     </TimerControls>
-                    <div className={styles.goalDisplay}>
-                        <div className={styles.bg}/>
+
+                    <MenuContainer>
                         <div className={styles.goalReadout}>
-                        {goalTime > 0 ? (
-                            <>
-                                <span className={styles.goalText}>Goal:</span> <FormattedTimeDisplay milliseconds={goalTime} useSemicolon={false} mode="units" size="small" />
-                                <TButton
-                                    classes={commonBtnStyles.config}
-                                    btnType="small-rect"
-                                    label="Edit"
-                                    actionFunc={toggleModal}
-                                />
-                            </>
-                        ) : (
-                            <TButton
-                                classes={commonBtnStyles.config}
-                                btnType="small-rect"
-                                label="Set Goal"
-                                actionFunc={toggleModal}
-                            />
-                        )}
+                            {goalTime > 0 ? (
+                                <>
+                                    <span className={styles.goalText}>Goal:</span> <FormattedTimeDisplay milliseconds={goalTime} useSemicolon={false} mode="units" size="small" />
+                                    <TButton classes={commonBtnStyles.config} btnType="small-rect" label="Edit" actionFunc={toggleModal} />
+                                </>
+                            ) : (
+                                <TButton classes={commonBtnStyles.config} btnType="small-rect" label="Set Goal" actionFunc={toggleModal} />
+                            )}
                         </div>
-                    </div>
+                    </MenuContainer>
+
                     {/*laps display*/}
                     {laps.length > 0 && (
                         <div className={styles.lapsContainer}>
                             <ul className={styles.lapList}>
-                                <NumberedList presets="light-on-dark" classes={styles.lapList}
-                                              listItems={laps.slice(0, 3)}/>
+                                <NumberedList presets="light-on-dark" classes={styles.lapList} listItems={laps.slice(0, 3)} />
                                 {laps.length > 3 && (
                                     <li className={`${listStyles.item} ${listStyles.lightOnDark}`}>
                                         <span className={`${listStyles.label}`}>{laps.length - 3} more laps</span>
@@ -122,19 +110,12 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                                 )}
                             </ul>
                             <div className={styles.lapActionsArea}>
-                                {laps.length > 3 && (
-                                    <TButton
-                                        classes={commonBtnStyles.config}
-                                        btnType="small-rect"
-                                        label="View All"
-                                        actionFunc={toggleModal}
-                                    />
-                                )}
+                                {laps.length > 3 && <TButton classes={commonBtnStyles.config} btnType="small-rect" label="View All" actionFunc={toggleModal} />}
                                 <TButton
                                     classes={`${commonBtnStyles.config}`}
                                     iconClasses={{
                                         classes: `${commonBtnStyles.darkOnLight}`,
-                                        strokeClass: commonBtnStyles.stroked
+                                        strokeClass: commonBtnStyles.stroked,
                                     }}
                                     btnType="small-rect"
                                     label="Clear"
@@ -146,11 +127,7 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                     )}
                 </>
             ) : (
-                <CompletionMessage
-                    totalRounds={1}
-                    roundDuration={goalTime}
-                    onRepeat={resetAndRepeat}
-                />
+                <CompletionMessage totalRounds={1} roundDuration={goalTime} onRepeat={resetAndRepeat} />
             )}
 
             {/* Modal for Configuring Goal */}
@@ -159,40 +136,20 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                     <div className={styles.goalConfigInputs}>
                         <label>
                             Hours:
-                            <input
-                                type="number"
-                                value={goalHours}
-                                onChange={(e) => setGoalHours(Number(e.target.value))}
-                            />
+                            <input type="number" value={goalHours} onChange={e => setGoalHours(Number(e.target.value))} />
                         </label>
                         <label>
                             Minutes:
-                            <input
-                                type="number"
-                                value={goalMinutes}
-                                onChange={(e) => setGoalMinutes(Number(e.target.value))}
-                            />
+                            <input type="number" value={goalMinutes} onChange={e => setGoalMinutes(Number(e.target.value))} />
                         </label>
                         <label>
                             Seconds:
-                            <input
-                                type="number"
-                                value={goalSeconds}
-                                onChange={(e) => setGoalSeconds(Number(e.target.value))}
-                            />
+                            <input type="number" value={goalSeconds} onChange={e => setGoalSeconds(Number(e.target.value))} />
                         </label>
                     </div>
                     <div className={styles.modalButtons}>
-                        <TButton
-                            btnType="small-rect"
-                            actionFunc={applyGoalConfig}
-                            label="Apply"
-                        />
-                        <TButton
-                            btnType="small-rect"
-                            actionFunc={toggleModal}
-                            label="Cancel"
-                        />
+                        <TButton btnType="small-rect" actionFunc={applyGoalConfig} label="Apply" />
+                        <TButton btnType="small-rect" actionFunc={toggleModal} label="Cancel" />
                     </div>
                 </Modal>
             )}

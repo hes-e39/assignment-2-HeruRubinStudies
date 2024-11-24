@@ -41,6 +41,8 @@
     position: relative;
     z-index: 20;
     display: flex;
+    align-items: center;
+    gap: 9px;
   }
   .bg{
     position: absolute;
@@ -48,6 +50,7 @@
     background-color: #1c1f30;
     border-radius: 0 0 0.5rem 0.5rem;
     z-index: 10;
+    border: 1px solid #3d3d48;
   }
 }
 
