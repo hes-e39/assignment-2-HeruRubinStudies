@@ -67,7 +67,7 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
         <div className={`${commonTimerStyles.timerContainer} ${classes ?? ""}`}>
             {remainingTime >= 0 ? (
                 <>
-                    <FormattedTimeDisplay milliseconds={remainingTime} />
+                    <FormattedTimeDisplay milliseconds={remainingTime} size="large" useSemicolon={true}   />
                     <TimerControls reset={resetCountdown} isRunning={isRunning} pause={pause} start={start}>
                         <div className={styles.countDownArea}>
                             <div className={styles.progressBarContainer}>

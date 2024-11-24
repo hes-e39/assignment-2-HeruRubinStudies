@@ -73,7 +73,7 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
         <div className={`${commonTimerStyles.timerContainer} ${ classes ?? ""}`}>
             {roundsLeft > 0 ? (
                 <>
-                    <FormattedTimeDisplay milliseconds={remainingTime} />
+                    <FormattedTimeDisplay milliseconds={remainingTime} useSemicolon={true} size="large"   />
                     <TimerControls reset={resetXY} isRunning={isRunning} pause={pause} start={start}>
                         <div className={commonTimerStyles.readout}>
                             <h2>Rounds Left: {roundsLeft}</h2>

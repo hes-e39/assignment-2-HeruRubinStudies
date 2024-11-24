@@ -34,6 +34,8 @@
 }
 
 .timerDisplay {
+  z-index: 200;
+  position: relative;
   align-items: flex-end;
   text-align: center;
   font-family: itc-avant-garde-gothic-pro, sans-serif;
@@ -42,7 +44,6 @@
   color: white;
   display: flex;
   justify-content: center;
-  z-index: 100;
   span{
     filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
   }

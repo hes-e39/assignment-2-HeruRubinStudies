@@ -36,7 +36,19 @@
   padding: 1rem 2rem 1rem 2rem;
   align-items: center;
   justify-content: center;
-  background-color: #1c1f30;
+  position: relative;
+  .goalReadout{
+    position: relative;
+    z-index: 20;
+    display: flex;
+  }
+  .bg{
+    position: absolute;
+    inset: -100% 0 0 0;
+    background-color: #1c1f30;
+    border-radius: 0 0 0.5rem 0.5rem;
+    z-index: 10;
+  }
 }
 
 .extra-laps {

@@ -78,7 +78,7 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                                     fillClass: commonBtnStyles.filled,
                                     strokeClass: commonBtnStyles.stroked,
                                 }}
-                                classes={`${isRunning ? '' : styles.hidden} ${commonBtnStyles.config}`}
+                                classes={`${commonBtnStyles.config}`}
                                 btnType="small-rect"
                                 label="Lap"
                                 icon="plus"
@@ -87,6 +87,8 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                         </div>
                     </TimerControls>
                     <div className={styles.goalDisplay}>
+                        <div className={styles.bg}/>
+                        <div className={styles.goalReadout}>
                         {goalTime > 0 ? (
                             <>
                                 <span className={styles.goalText}>Goal:</span> <FormattedTimeDisplay milliseconds={goalTime} useSemicolon={false} mode="units" size="small" />
@@ -105,7 +107,9 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                                 actionFunc={toggleModal}
                             />
                         )}
+                        </div>
                     </div>
+                    {/*laps display*/}
                     {laps.length > 0 && (
                         <div className={styles.lapsContainer}>
                             <ul className={styles.lapList}>

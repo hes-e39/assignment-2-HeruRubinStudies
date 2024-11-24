@@ -3,7 +3,8 @@ import styles from './TimerTracker.module.scss';
 import type { timerType } from '../../views/Timers/TimersView.tsx';
 import type { iconGraphic } from '../Icons/Icon.tsx';
 import Icon from '../Icons/Icon.tsx';
-import {formatTimerNumber} from "../../utils/helpers.ts";
+import {formatTimerNumber} from "../../utils/helpers.tsx";
+
 
 export type timerSequenceItem = {
     type: timerType;

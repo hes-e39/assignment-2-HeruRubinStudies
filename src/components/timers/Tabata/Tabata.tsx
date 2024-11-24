@@ -90,7 +90,7 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
             {roundsLeft > 0 ? (
                 <>
                     <h2>
-                        <FormattedTimeDisplay milliseconds={remainingTime} />
+                        <FormattedTimeDisplay size="large" useSemicolon={true} milliseconds={remainingTime} />
                     </h2>
                     <TimerControls reset={resetTabata} isRunning={isRunning} pause={pause} start={start}>
                         <div className={commonTimerStyles.readout}>
