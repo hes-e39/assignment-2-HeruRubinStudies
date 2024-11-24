@@ -1,13 +1,13 @@
 import type React from 'react';
 import { useState, useEffect } from 'react';
-import FormattedTimeDisplay from '../../generic/FormattedTimeDisplay';
+import FormattedTimeDisplay from '../../visualization/FormattedTimeDisplay/FormattedTimeDisplay.tsx';
 import TimerControls from '../../menus/TimerControls/TimerControls';
 import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
 import Modal from "../../generic/Modal/Modal";
 import TButton from "../../generic/Button/TButton";
 import CompletionMessage from "../../visualization/CompletionMessage/CompletionMessage";
 import NumberedList from "../../NumberedList/NumberedList";
-import { formatTimerNumber } from "../../../utils/helpers";
+import {formatTimerNumber} from "../../../utils/helpers";
 import styles from './Stopwatch.module.scss';
 import commonBtnStyles from "../../generic/Button/TButton.module.scss";
 import listStyles from "../../NumberedList/numberdList.module.scss";
@@ -25,8 +25,8 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
 
     // Configuration state for goal time
     const [goalHours, setGoalHours] = useState(0);
-    const [goalMinutes, setGoalMinutes] = useState(0);
-    const [goalSeconds, setGoalSeconds] = useState(0);
+    const [goalMinutes, setGoalMinutes] = useState(1);
+    const [goalSeconds, setGoalSeconds] = useState(30);
 
     // Calculate goal time in milliseconds
     const goalTime = (goalHours * 3600 + goalMinutes * 60 + goalSeconds) * 1000;
@@ -42,7 +42,7 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
     // Add a new lap
     const addLap = () => {
         setLaps((prevLaps) => [
-            { numberLabel: formatTimerNumber(laps.length + 1), nameLabel: `${formatTime(milliseconds)}` },
+            { numberLabel: formatTimerNumber(laps.length + 1), nameLabel: `${ formatTimerNumber(milliseconds)}` },
             ...prevLaps,
         ]);
     };
@@ -65,23 +65,11 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
         start(); // Automatically start the stopwatch again
     };
 
-    // Format the time for lap display
-    const formatTime = (ms: number): string => {
-        const hundredths = ms % 100;
-        const seconds = Math.floor(ms / 100) % 60;
-        const minutes = Math.floor(ms / (100 * 60)) % 60;
-        const hours = Math.floor(ms / (100 * 60 * 60));
-
-        return `${hours > 0 ? `${String(hours).padStart(2, '0')}:` : ''}${String(minutes).padStart(2, '0')}:${String(
-            seconds
-        ).padStart(2, '0')}:${String(hundredths).padStart(2, '0')}`;
-    };
-
     return (
         <div className={`${styles.stopwatchContainer} ${classes ?? ""}`}>
             {!isGoalReached ? (
                 <>
-                    <FormattedTimeDisplay milliseconds={milliseconds} />
+                    <FormattedTimeDisplay milliseconds={milliseconds} size="large" useSemicolon />
                     <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
                         <div className={styles.lapsControlsArea}>
                             <TButton
@@ -96,19 +84,33 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                                 icon="plus"
                                 actionFunc={addLap}
                             />
+                        </div>
+                    </TimerControls>
+                    <div className={styles.goalDisplay}>
+                        {goalTime > 0 ? (
+                            <>
+                                <span className={styles.goalText}>Goal:</span> <FormattedTimeDisplay milliseconds={goalTime} useSemicolon={false} mode="units" size="small" />
+                                <TButton
+                                    classes={commonBtnStyles.config}
+                                    btnType="small-rect"
+                                    label="Edit"
+                                    actionFunc={toggleModal}
+                                />
+                            </>
+                        ) : (
                             <TButton
                                 classes={commonBtnStyles.config}
                                 btnType="small-rect"
                                 label="Set Goal"
                                 actionFunc={toggleModal}
                             />
-                        </div>
-                    </TimerControls>
-
+                        )}
+                    </div>
                     {laps.length > 0 && (
                         <div className={styles.lapsContainer}>
                             <ul className={styles.lapList}>
-                                <NumberedList presets="light-on-dark" classes={styles.lapList} listItems={laps.slice(0, 3)} />
+                                <NumberedList presets="light-on-dark" classes={styles.lapList}
+                                              listItems={laps.slice(0, 3)}/>
                                 {laps.length > 3 && (
                                     <li className={`${listStyles.item} ${listStyles.lightOnDark}`}>
                                         <span className={`${listStyles.label}`}>{laps.length - 3} more laps</span>
@@ -126,7 +128,10 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                                 )}
                                 <TButton
                                     classes={`${commonBtnStyles.config}`}
-                                    iconClasses={{ classes: `${commonBtnStyles.darkOnLight}`, strokeClass: commonBtnStyles.stroked }}
+                                    iconClasses={{
+                                        classes: `${commonBtnStyles.darkOnLight}`,
+                                        strokeClass: commonBtnStyles.stroked
+                                    }}
                                     btnType="small-rect"
                                     label="Clear"
                                     icon="close-x"

@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import FormattedTimeDisplay from '../../generic/FormattedTimeDisplay';
+import FormattedTimeDisplay from '../../visualization/FormattedTimeDisplay/FormattedTimeDisplay.tsx';
 import TimerControls from '../../menus/TimerControls/TimerControls';
 import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
 import Rounds from '../../visualization/Rounds/Rounds';

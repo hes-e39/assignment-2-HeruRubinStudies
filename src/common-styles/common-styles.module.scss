@@ -11,8 +11,30 @@
   justify-content: center;
 }
 
-.timerDisplay {
+.large{
   font-size: 11vh;
+  .number{
+    font-family: "itc-avant-garde-gothic-pro", sans-serif;
+  }
+}
+.medium{
+  font-size: 6vh;
+}
+
+.small{
+  .number{
+    font-size: 1rem;
+    margin-left: 0.5rem;
+  }
+  .units{
+    font-size: 0.75rem;
+    margin-left: 2px;
+    margin-bottom: 1px;
+  }
+}
+
+.timerDisplay {
+  align-items: flex-end;
   text-align: center;
   font-family: itc-avant-garde-gothic-pro, sans-serif;
   font-weight: 700;

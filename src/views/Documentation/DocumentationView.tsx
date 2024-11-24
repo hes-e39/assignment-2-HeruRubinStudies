@@ -3,7 +3,7 @@ import TButton from "../../components/generic/Button/TButton.tsx";
 import Loading from "../../components/generic/Loading.tsx";
 import styles from "./docView.module.scss";
 import Modal from "../../components/generic/Modal/Modal.tsx";
-import FormattedTimeDisplay from "../../components/generic/FormattedTimeDisplay.tsx";
+import FormattedTimeDisplay from "../../components/visualization/FormattedTimeDisplay/FormattedTimeDisplay.tsx";
 import Icon from "../../components/Icons/Icon.tsx";
 import GenericListMenu from "../../components/menus/ListMenu/ListMenu.tsx";
 import TabMenu from "../../components/menus/TabMenu/TabMenu.tsx";
