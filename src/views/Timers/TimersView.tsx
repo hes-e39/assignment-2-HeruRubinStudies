@@ -53,7 +53,7 @@ const Timer: React.FC = () => {
 
     return (
         <div className={`sss ${mainStyles.mainContainer} ${commonStyles.flexVertCenter} ${commonStyles.flexVert} ${commonStyles.flexHorzCenter}`}>
-            <div>
+            <div className={mainStyles.timerArea}>
                 {activeTimer === "stopwatch" && (
                     <Stopwatch milliseconds={milliseconds} isRunning={isRunning}  start={start} pause={pause} reset={reset}  />
                 )}

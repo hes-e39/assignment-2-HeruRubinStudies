@@ -20,12 +20,20 @@ const Rounds: React.FC<RoundsProps> = ({
                                            roundsLeft,
                                            remainingTime,
                                        }) => {
+
+    const getRoundTicksSize=()=>{
+        if(totalRounds < 6){return styles.large}
+        if(totalRounds >= 6 && totalRounds < 30 ){return styles.medium}
+        if(totalRounds >= 30 && totalRounds <= 60 ){return styles.small}
+    }
+
+
     return (
-        <div className={styles.roundsDisplay}>
+        <div className={`${styles.roundsDisplay} ${getRoundTicksSize()}`}>
             {Array.from({ length: totalRounds }).map((_, index) => (
                 <div
                     key={index}
-                    className={`${styles.roundSquare} ${
+                    className={`${styles.roundSquare} ${getRoundTicksSize()} ${
                         completedRounds.includes(index) ? styles.completedRound : ""
                     }`}
                 >

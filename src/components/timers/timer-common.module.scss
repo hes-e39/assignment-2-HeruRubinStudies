@@ -15,8 +15,18 @@
   background: #2a2e47;
   color: white;
   padding: 0.5rem 1rem;
-  margin-top: 1rem;
 }
+
+.steppersArea{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 
 .inputsArea{
   display: flex;
@@ -31,6 +41,9 @@
 .modalBtns{
   display: flex;
   justify-content: center;
+  padding: 1.25rem;
+  margin: 2rem -1.25rem -1.25rem -1.25rem;
+  background-color: #5b5e71;
 }
 
 .actionArea{

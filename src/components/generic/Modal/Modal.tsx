@@ -1,7 +1,8 @@
 import type React from 'react';
-import styles from './Modal.module.scss';
-import commonStyles from '../../../main.module.scss';
 import TButton from '../Button/TButton.tsx';
+import styles from './Modal.module.scss';
+
+
 
 export interface ModalProps {
     children: React.ReactNode;
@@ -14,13 +15,16 @@ export interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ children, hasCloseBtn, closeFunc, title, classes }) => {
     return (
         <div className={`${styles.modalOverlay} ${classes ?? ''}`}>
-            <div className={styles.modalContent}>
-                <div className={styles.titleBar}>
-                    {hasCloseBtn && <TButton classes={commonStyles.spacer} btnType="round-small" icon="close-x" />}
-                    {title && <h2>{title}</h2>}
-                    {hasCloseBtn && <TButton actionFunc={closeFunc} btnType="round-small" icon="close-x" hoverAni="grow" />}
+            <div className={styles.modalMenuItems}>
+                {hasCloseBtn && <TButton actionFunc={closeFunc} classes={styles.closeBtn} iconClasses={{ strokeClass: styles.iconStroke }} btnType="round-small" icon="close-x"  />}
+                <div className={styles.modalContainer}>
+                    <div className={styles.modalContent}>
+                        <div className={styles.titleBar}>
+                            {title && <h2>{title}</h2>}
+                        </div>
+                        {children}
+                    </div>
                 </div>
-                {children}
             </div>
         </div>
     );

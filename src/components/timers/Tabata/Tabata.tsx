@@ -9,20 +9,37 @@ import commonTimerStyles from '../timer-common.module.scss';
 import CompletionMessage from '../../visualization/CompletionMessage/CompletionMessage';
 import Modal from '../../generic/Modal/Modal';
 import TButton from "../../generic/Button/TButton.tsx";
+import MenuContainer from "../../menus/MenuContainer/MenuContainer.tsx";
+import NumberStepper from "../../generic/NumberStepper/NumberStepper.tsx";
 
 interface TabataProps extends TimerFuncProps {
     milliseconds: number;
     isRunning: boolean;
-    classes? : string;
+    classes?: string;
     totalRoundsExternal?: number;
-    workDurationExternal? : number;
-    breakDurationExternal? : number;
+    workDurationExternal?: number;
+    breakDurationExternal?: number;
 }
 
-const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, start, classes, totalRoundsExternal, workDurationExternal, breakDurationExternal }) => {
-    const [totalRounds, setTotalRounds] = useState(totalRoundsExternal ?? 5); // Configurable total rounds
-    const [workDuration, setWorkDuration] = useState(workDurationExternal ?? 0); // Configurable work duration in ms
-    const [breakDuration, setBreakDuration] = useState(breakDurationExternal ?? 0); // Configurable break duration in ms
+const Tabata: React.FC<TabataProps> = ({
+                                           milliseconds,
+                                           isRunning,
+                                           reset,
+                                           pause,
+                                           start,
+                                           classes,
+                                           totalRoundsExternal,
+                                           workDurationExternal,
+                                           breakDurationExternal,
+                                       }) => {
+    const [totalRounds, setTotalRounds] = useState(totalRoundsExternal ?? 5); // Default total rounds
+    const [workMinutes, setWorkMinutes] = useState(Math.floor((workDurationExternal ?? 10000) / 60000)); // Work minutes
+    const [workSeconds, setWorkSeconds] = useState(((workDurationExternal ?? 10000) % 60000) / 1000); // Work seconds
+    const [breakMinutes, setBreakMinutes] = useState(Math.floor((breakDurationExternal ?? 5000) / 60000)); // Break minutes
+    const [breakSeconds, setBreakSeconds] = useState(((breakDurationExternal ?? 5000) % 60000) / 1000); // Break seconds
+
+    const [workDuration, setWorkDuration] = useState((workMinutes * 60 + workSeconds) * 1000); // Work duration in ms
+    const [breakDuration, setBreakDuration] = useState((breakMinutes * 60 + breakSeconds) * 1000); // Break duration in ms
 
     const [roundsLeft, setRoundsLeft] = useState(totalRounds);
     const [phase, setPhase] = useState<'Work' | 'Break'>('Work');
@@ -47,10 +64,13 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
     // Apply custom configuration from modal
-    const applyCustomConfig = (customRounds: number, customWork: number, customBreak: number) => {
-        setTotalRounds(customRounds);
-        setWorkDuration(customWork);
-        setBreakDuration(customBreak);
+    const applyCustomConfig = () => {
+        const updatedWorkDuration = (workMinutes * 60 + workSeconds) * 1000;
+        const updatedBreakDuration = (breakMinutes * 60 + breakSeconds) * 1000;
+
+        setWorkDuration(updatedWorkDuration);
+        setBreakDuration(updatedBreakDuration);
+        setRoundsLeft(totalRounds);
         resetTabata(); // Reset with new settings
         setIsModalOpen(false); // Close the modal
     };
@@ -105,7 +125,9 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
                             />
                         </div>
                     </TimerControls>
-                    <TButton classes={commonTimerStyles.config} actionFunc={toggleModal} label="Configure" btnType="small-rect" />
+                    <MenuContainer>
+                        <TButton classes={commonTimerStyles.config} actionFunc={toggleModal} label="Configure" btnType="small-rect" />
+                    </MenuContainer>
                 </>
             ) : (
                 <CompletionMessage totalRounds={totalRounds} roundDuration={workDuration} onRepeat={resetTabata} />
@@ -113,35 +135,53 @@ const Tabata: React.FC<TabataProps> = ({ milliseconds, isRunning, reset, pause, 
 
             {/* Modal for Configuring Timer */}
             {isModalOpen && (
-                <Modal closeFunc={toggleModal} hasCloseBtn={true} title="Configure Tabata Timer" >
+                <Modal closeFunc={toggleModal} hasCloseBtn={true} title="Configure Tabata Timer">
                     <div className={commonTimerStyles.inputsArea}>
-                        <label>
-                            Rounds:
-                            <input
-                                type="number"
+                        <div className={commonTimerStyles.steppersArea}>
+                            <NumberStepper
+                                label="Rounds"
                                 value={totalRounds}
-                                onChange={(e) => setTotalRounds(Number(e.target.value))}
+                                onChange={(newValue: number) => setTotalRounds(newValue)}
+                                min={1}
+                                max={100}
+                                step={1}
                             />
-                        </label>
-                        <label>
-                            Work Duration (ms):
-                            <input
-                                type="number"
-                                value={workDuration}
-                                onChange={(e) => setWorkDuration(Number(e.target.value))}
+                            <NumberStepper
+                                label="Work Minutes"
+                                value={workMinutes}
+                                onChange={(newValue: number) => setWorkMinutes(newValue)}
+                                min={0}
+                                max={59}
+                                step={1}
                             />
-                        </label>
-                        <label>
-                            Break Duration (ms):
-                            <input
-                                type="number"
-                                value={breakDuration}
-                                onChange={(e) => setBreakDuration(Number(e.target.value))}
+                            <NumberStepper
+                                label="Work Seconds"
+                                value={workSeconds}
+                                onChange={(newValue: number) => setWorkSeconds(newValue)}
+                                min={0}
+                                max={59}
+                                step={1}
                             />
-                        </label>
+                            <NumberStepper
+                                label="Break Minutes"
+                                value={breakMinutes}
+                                onChange={(newValue: number) => setBreakMinutes(newValue)}
+                                min={0}
+                                max={59}
+                                step={1}
+                            />
+                            <NumberStepper
+                                label="Break Seconds"
+                                value={breakSeconds}
+                                onChange={(newValue: number) => setBreakSeconds(newValue)}
+                                min={0}
+                                max={59}
+                                step={1}
+                            />
+                        </div>
                     </div>
                     <div className={styles.modalButtons}>
-                        <TButton btnType="small-rect" actionFunc={() => applyCustomConfig(totalRounds, workDuration, breakDuration)} label="Apply" />
+                        <TButton btnType="small-rect" actionFunc={applyCustomConfig} label="Apply" />
                         <TButton btnType="small-rect" actionFunc={toggleModal} label="Cancel" />
                     </div>
                 </Modal>

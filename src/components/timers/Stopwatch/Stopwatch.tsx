@@ -8,10 +8,12 @@ import TButton from '../../generic/Button/TButton';
 import CompletionMessage from '../../visualization/CompletionMessage/CompletionMessage';
 import NumberedList from '../../NumberedList/NumberedList';
 import { formatTimerNumber } from '../../../utils/helpers';
-import styles from './Stopwatch.module.scss';
+import stopwatchStyles from './Stopwatch.module.scss';
+import styles from '../timer-common.module.scss';
 import commonBtnStyles from '../../generic/Button/TButton.module.scss';
 import listStyles from '../../NumberedList/numberdList.module.scss';
 import MenuContainer from '../../menus/MenuContainer/MenuContainer.tsx';
+import NumberStepper from '../../generic/NumberStepper/NumberStepper.tsx';
 
 interface StopWatchProps extends TimerFuncProps {
     milliseconds: number;
@@ -64,12 +66,12 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
     };
 
     return (
-        <div className={`${styles.stopwatchContainer} ${classes ?? ''}`}>
+        <div className={`${stopwatchStyles.stopwatchContainer} ${classes ?? ''}`}>
             {!isGoalReached ? (
                 <>
                     <FormattedTimeDisplay milliseconds={milliseconds} size="large" useSemicolon />
                     <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
-                        <div className={styles.lapsControlsArea}>
+                        <div className={stopwatchStyles.lapsControlsArea}>
                             <TButton
                                 iconClasses={{
                                     classes: `${commonBtnStyles.darkOnLight}`,
@@ -86,10 +88,10 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                     </TimerControls>
 
                     <MenuContainer>
-                        <div className={styles.goalReadout}>
+                        <div className={stopwatchStyles.goalReadout}>
                             {goalTime > 0 ? (
                                 <>
-                                    <span className={styles.goalText}>Goal:</span> <FormattedTimeDisplay milliseconds={goalTime} useSemicolon={false} mode="units" size="small" />
+                                    <span className={stopwatchStyles.goalText}>Goal:</span> <FormattedTimeDisplay milliseconds={goalTime} useSemicolon={false} mode="units" size="small" />
                                     <TButton classes={commonBtnStyles.config} btnType="small-rect" label="Edit" actionFunc={toggleModal} />
                                 </>
                             ) : (
@@ -100,16 +102,16 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
 
                     {/*laps display*/}
                     {laps.length > 0 && (
-                        <div className={styles.lapsContainer}>
-                            <ul className={styles.lapList}>
-                                <NumberedList presets="light-on-dark" classes={styles.lapList} listItems={laps.slice(0, 3)} />
+                        <div className={stopwatchStyles.lapsContainer}>
+                            <ul className={stopwatchStyles.lapList}>
+                                <NumberedList presets="light-on-dark" classes={stopwatchStyles.lapList} listItems={laps.slice(0, 3)} />
                                 {laps.length > 3 && (
                                     <li className={`${listStyles.item} ${listStyles.lightOnDark}`}>
                                         <span className={`${listStyles.label}`}>{laps.length - 3} more laps</span>
                                     </li>
                                 )}
                             </ul>
-                            <div className={styles.lapActionsArea}>
+                            <div className={stopwatchStyles.lapActionsArea}>
                                 {laps.length > 3 && <TButton classes={commonBtnStyles.config} btnType="small-rect" label="View All" actionFunc={toggleModal} />}
                                 <TButton
                                     classes={`${commonBtnStyles.config}`}
@@ -134,20 +136,34 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
             {isModalOpen && (
                 <Modal closeFunc={toggleModal} hasCloseBtn={true} title="Set Goal Time">
                     <div className={styles.goalConfigInputs}>
-                        <label>
-                            Hours:
-                            <input type="number" value={goalHours} onChange={e => setGoalHours(Number(e.target.value))} />
-                        </label>
-                        <label>
-                            Minutes:
-                            <input type="number" value={goalMinutes} onChange={e => setGoalMinutes(Number(e.target.value))} />
-                        </label>
-                        <label>
-                            Seconds:
-                            <input type="number" value={goalSeconds} onChange={e => setGoalSeconds(Number(e.target.value))} />
-                        </label>
+                        <div className={styles.steppersArea}>
+                            <NumberStepper
+                                label="Hours"
+                                value={goalHours}
+                                onChange={setGoalHours}
+                                min={0}
+                                max={100}
+                                step={1}
+                            />
+                            <NumberStepper
+                                label="Minutes"
+                                value={goalMinutes}
+                                onChange={setGoalMinutes}
+                                min={0}
+                                max={59}
+                                step={1}
+                            />
+                            <NumberStepper
+                                label="Seconds"
+                                value={goalSeconds}
+                                onChange={setGoalSeconds}
+                                min={0}
+                                max={59}
+                                step={1}
+                            />
+                        </div>
                     </div>
-                    <div className={styles.modalButtons}>
+                    <div className={styles.modalBtns}>
                         <TButton btnType="small-rect" actionFunc={applyGoalConfig} label="Apply" />
                         <TButton btnType="small-rect" actionFunc={toggleModal} label="Cancel" />
                     </div>

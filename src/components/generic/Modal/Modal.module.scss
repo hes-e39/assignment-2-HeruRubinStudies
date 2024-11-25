@@ -12,23 +12,54 @@
   z-index: 1000;
 }
 
+.closeBtn{
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  transform: translate(50%, -50%);
+  transition: transform 0.3s;
+  .iconStroke{
+    stroke: #0d1117;
+  }
+  &:hover {
+    transform: translate(50%, -50%) rotate(180deg) scale(1.25);
+  }
+  &:active{
+    transform: translate(50%, -50%) rotate(0deg) scale(.9);
+  }
+}
+
 .titleBar{
   display: flex;
-  justify-content: space-between;
+  position: relative;
+  justify-content: center;
   width: 100%;
   align-items: center;
   margin-bottom: 1rem;
+  padding: 0 20px 0 20px;
+}
+
+.modalMenuItems{
+  position: relative;
+  min-width: 60%;
+  min-height: 60%;
+}
+
+.modalContainer{
+  position:relative;
+  overflow-y: auto;
 }
 .modalContent{
   background: white;
+  position: relative;
   color: #0d1117;
   padding: 10px 20px 20px 20px;
   border-radius: 8px;
-  width: 80%;
-  max-width: 400px;
+  min-width: 200px;
   text-align: center;
-  max-height: 80vh;
-  overflow-y: auto;
+  height: 100%;
+  width: 100%;
   h2 {
     margin: 0;
     display: flex;

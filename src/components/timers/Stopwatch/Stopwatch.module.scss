@@ -30,13 +30,14 @@
   margin-top: 10px;
 }
 
-.goalDisplay{
+.menuContainer{
   display: flex;
   color: white;
   padding: 1rem 2rem 1rem 2rem;
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 100%;
   .goalReadout{
     position: relative;
     z-index: 20;

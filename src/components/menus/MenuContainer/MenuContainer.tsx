@@ -8,7 +8,7 @@ interface MenuContainerProps {
 
 const MenuContainer: React.FC<MenuContainerProps> = ({ children }) => {
     return (
-        <div className={styles.goalDisplay}>
+        <div className={styles.menuContainer}>
             <div className={styles.bg} />
             <div className={styles.goalReadout}>{children}</div>
         </div>

@@ -1,0 +1,69 @@
+.numberStepperContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 60px;
+  user-select: none;
+.label{
+  color: #0d1117;
+  font-size: 0.75rem;
+  font-family: "articulat-cf", sans-serif;
+}
+
+  .interactionArea{
+    display: flex;
+    flex-direction: column;
+    border: 1px dashed #e7e7e7;
+    border-radius: 10px;
+  }
+  .stepperButton {
+    background-color: white;
+    color: #2d3748;
+    border: 1px solid #a0a8b5;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 0.5rem;
+    border-radius: 4px;
+    &:first-child{
+      border-radius: 8px 8px 0 0;
+      border-width: 1px 1px 0 1px;
+    }
+
+    &:last-child{
+      border-radius: 0 0 8px 8px;
+      border-width: 0 1px 1px 1px;
+    }
+
+    &:hover {
+      background-color: #1a90c4;
+    }
+    &:active {
+      background-color: #176b96;
+    }
+  }
+
+  .valueDisplay {
+    font-size: 2.5rem;
+    color: #333;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    font-family: "itc-avant-garde-gothic-pro", sans-serif;
+    font-weight: 300;
+  }
+
+  .numberInput {
+    width: 50px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 2px solid #2bb9e5;
+    border-radius: 4px;
+    padding: 4px;
+
+    &:focus {
+      outline: none;
+      border-color: #1a90c4;
+    }
+  }
+}
