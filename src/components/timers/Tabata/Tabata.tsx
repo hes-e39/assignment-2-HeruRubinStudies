@@ -10,7 +10,7 @@ import CompletionMessage from '../../visualization/CompletionMessage/CompletionM
 import Modal from '../../generic/Modal/Modal';
 import TButton from "../../generic/Button/TButton.tsx";
 import MenuContainer from "../../menus/MenuContainer/MenuContainer.tsx";
-import NumberStepper from "../../generic/NumberStepper/NumberStepper.tsx";
+import TabataEditor from "../../ConfigurationViews/TabataEditor.tsx";
 
 interface TabataProps extends TimerFuncProps {
     milliseconds: number;
@@ -136,70 +136,20 @@ const Tabata: React.FC<TabataProps> = ({
             {/* Modal for Configuring Timer */}
             {isModalOpen && (
                 <Modal closeFunc={toggleModal} hasCloseBtn={true} title="Configure Tabata Timer">
-                    <div className={`${commonTimerStyles.inputsArea}`}>
-                        <div className={`${commonTimerStyles.steppersArea} ${commonTimerStyles.noGap}`}>
-                            <section className={commonTimerStyles.nonTimeInputArea}>
-                                <NumberStepper
-                                    label="Rounds"
-                                    value={totalRounds}
-                                    onChange={(newValue: number) => setTotalRounds(newValue)}
-                                    min={1}
-                                    max={100}
-                                    step={1}
-                                />
-                            </section>
-                            <section className={commonTimerStyles.timeInputArea}>
-                                <h3>
-                                    Work Periods
-                                </h3>
-                                <div className={commonTimerStyles.groupedInputs}>
-                                    <NumberStepper
-                                        label="Minutes"
-                                        value={workMinutes}
-                                        onChange={(newValue: number) => setWorkMinutes(newValue)}
-                                        min={0}
-                                        max={59}
-                                        step={1}
-                                    />
-                                    <NumberStepper
-                                        label="Seconds"
-                                        value={workSeconds}
-                                        onChange={(newValue: number) => setWorkSeconds(newValue)}
-                                        min={0}
-                                        max={59}
-                                        step={1}
-                                    />
-                                </div>
-                            </section>
-                            <section className={`${commonTimerStyles.timeInputArea}`}>
-                                <h3>
-                                    Break Periods
-                                </h3>
-                                <div className={commonTimerStyles.groupedInputs}>
-                                    <NumberStepper
-                                        label="Minutes"
-                                        value={breakMinutes}
-                                        onChange={(newValue: number) => setBreakMinutes(newValue)}
-                                        min={0}
-                                        max={59}
-                                        step={1}
-                                    />
-                                    <NumberStepper
-                                        label="Break Seconds"
-                                        value={breakSeconds}
-                                        onChange={(newValue: number) => setBreakSeconds(newValue)}
-                                        min={0}
-                                        max={59}
-                                        step={1}
-                                    />
-                                </div>
-                            </section>
-                        </div>
-                    </div>
-                    <div className={commonTimerStyles.modalBtns}>
-                        <TButton btnType="small-rect" actionFunc={applyCustomConfig} label="Apply" />
-                        <TButton btnType="small-rect" actionFunc={toggleModal} label="Cancel" />
-                    </div>
+                    <TabataEditor
+                        setTotalRounds={setTotalRounds}
+                        totalRounds={totalRounds}
+                        setBreakMinutes={setBreakMinutes}
+                        breakMinutes={breakMinutes}
+                        setWorkMinutes={setWorkMinutes}
+                        workMinutes={workMinutes}
+                        setWorkSeconds={setWorkSeconds}
+                        workSeconds={workSeconds}
+                        setBreakSeconds={setBreakSeconds}
+                        breakSeconds={breakSeconds}
+                        toggleModal={toggleModal}
+                        applyCustomConfig={applyCustomConfig}
+                    />
                 </Modal>
             )}
         </div>

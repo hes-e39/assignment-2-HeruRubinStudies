@@ -10,7 +10,7 @@ import commonTimerStyles from "../timer-common.module.scss";
 import Modal from "../../generic/Modal/Modal.tsx";
 import TButton from "../../generic/Button/TButton.tsx";
 import MenuContainer from "../../menus/MenuContainer/MenuContainer.tsx";
-import NumberStepper from "../../generic/NumberStepper/NumberStepper.tsx";
+import CountdownEditor from "../../ConfigurationViews/CountdownEditor.tsx";
 
 interface CountdownProps extends TimerFuncProps {
     milliseconds: number;
@@ -107,38 +107,16 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
             {/* Modal for Configuring Timer */}
             {isModalOpen && (
                 <Modal title="Configure Countdown" closeFunc={toggleModal} hasCloseBtn={true}>
-                    <div className={commonTimerStyles.inputsArea}>
-                        <div className={commonTimerStyles.steppersArea}>
-                            <NumberStepper
-                                label="Hours"
-                                value={goalHours}
-                                onChange={(newValue: number) => setGoalHours(newValue)}
-                                min={0}
-                                max={100}
-                                step={1}
-                            />
-                            <NumberStepper
-                                label="Minutes"
-                                value={goalMinutes}
-                                onChange={(newValue: number) => setGoalMinutes(newValue)}
-                                min={0}
-                                max={59}
-                                step={1}
-                            />
-                            <NumberStepper
-                                label="Seconds"
-                                value={goalSeconds}
-                                onChange={(newValue: number) => setGoalSeconds(newValue)}
-                                min={0}
-                                max={59}
-                                step={1}
-                            />
-                        </div>
-                    </div>
-                    <div className={commonTimerStyles.modalBtns}>
-                        <TButton btnType="small-rect" label="Apply" actionFunc={applyCustomTime}/>
-                        <TButton btnType="small-rect" label="Cancel" actionFunc={toggleModal}/>
-                    </div>
+                    <CountdownEditor
+                        applyCustomTime={applyCustomTime}
+                        toggleModal={toggleModal}
+                        setGoalHours={setGoalHours}
+                        setGoalSeconds={setGoalSeconds}
+                        setGoalMinutes={setGoalMinutes}
+                        goalSeconds={goalSeconds}
+                        goalMinutes={goalMinutes}
+                        goalHours={goalHours}
+                    />
                 </Modal>
             )}
         </div>

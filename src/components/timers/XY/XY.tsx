@@ -9,7 +9,7 @@ import CompletionMessage from "../../visualization/CompletionMessage/CompletionM
 import Modal from "../../generic/Modal/Modal";
 import TButton from "../../generic/Button/TButton.tsx";
 import MenuContainer from "../../menus/MenuContainer/MenuContainer.tsx";
-import NumberStepper from "../../generic/NumberStepper/NumberStepper.tsx";
+import XYEditor from "../../ConfigurationViews/XYeditor.tsx";
 
 interface XYTimerProps extends TimerFuncProps {
     milliseconds: number;
@@ -106,40 +106,16 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
             {/* Modal for Configuring Timer */}
             {isModalOpen && (
                 <Modal closeFunc={toggleModal} hasCloseBtn={true} title="Configure XY Timer">
-                    <div className={commonTimerStyles.inputsArea}>
-                        <div className={commonTimerStyles.steppersArea}>
-                            <div className={commonTimerStyles.nonTimeInputArea}>
-                                <NumberStepper
-                                    label="Rounds"
-                                    value={totalRounds}
-                                    onChange={(newValue: number) => setTotalRounds(newValue)}
-                                    min={1}
-                                    max={100}
-                                    step={1}
-                                />
-                            </div>
-                            <NumberStepper
-                                label={<>Minutes<br/>per Round</>}
-                                value={roundMinutes}
-                                onChange={(newValue: number) => setRoundMinutes(newValue)}
-                                min={0}
-                                max={59}
-                                step={1}
-                            />
-                            <NumberStepper
-                                label={<>Seconds<br/>per Round</>}
-                                value={roundSeconds}
-                                onChange={(newValue: number) => setRoundSeconds(newValue)}
-                                min={0}
-                                max={59}
-                                step={1}
-                            />
-                        </div>
-                    </div>
-                    <div className={commonTimerStyles.modalBtns}>
-                        <TButton btnType="small-rect" actionFunc={applyCustomConfig} label="Apply" />
-                        <TButton btnType="small-rect" actionFunc={toggleModal} label="Cancel" />
-                    </div>
+                    <XYEditor
+                        toggleModal={toggleModal}
+                        setRoundSeconds={setRoundSeconds}
+                        roundSeconds={roundSeconds}
+                        totalRounds={totalRounds}
+                        setRoundMinutes={setRoundMinutes}
+                        roundMinutes={roundMinutes}
+                        applyCustomConfig={applyCustomConfig}
+                        setTotalRounds={setTotalRounds}
+                    />
                 </Modal>
             )}
         </div>

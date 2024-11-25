@@ -7,21 +7,20 @@ import mainStyles from "../../main.module.scss";
 import commonStyles from "../../common-styles/common-styles.module.scss";
 import seqStyles from "./TimerSequence.module.scss";
 import TimerTracker from "../TimerTracker/TimerTracker.tsx";
-import type {timerSequenceItem} from "../TimerTracker/TimerTracker.tsx";
+import type { timerSequenceItem } from "../TimerTracker/TimerTracker.tsx";
 import TButton from "../generic/Button/TButton.tsx";
 
 const TimerSequence: React.FC = () => {
+    const [timerSequence, setTimerSequence] = useState<timerSequenceItem[]>([
+        { type: "countdown", icon: "countdown", label: "Warm up", initialTime: 10000 },
+        { type: "tabata", icon: "tabata", label: "Stretch", rounds: 3, workDuration: 4000, breakDuration: 2000 },
+        { type: "countdown", icon: "countdown", label: "Push ups", initialTime: 5000 },
+    ]);
+
     const [currentTimerIndex, setCurrentTimerIndex] = useState(0);
     const [isSequenceRunning, setIsSequenceRunning] = useState(false);
 
     const { milliseconds, isRunning, start, pause, reset } = useTimer();
-
-    const timerSequence: timerSequenceItem[]  = [
-        { type: "countdown",icon:"countdown", label : "Warm up", initialTime: 10000 },
-        { type: "tabata", icon:"tabata", label : "stretch", rounds: 3, workDuration: 4000, breakDuration: 2000 },
-        { type: "countdown", icon:"countdown", label : "push ups", initialTime: 5000 },
-    ];
-
     const currentTimerConfig = timerSequence[currentTimerIndex];
 
     const startSequence = () => {
@@ -40,9 +39,8 @@ const TimerSequence: React.FC = () => {
             setIsSequenceRunning(false);
             pause();
         }
-    }, [currentTimerIndex, reset, start, pause]);
+    }, [currentTimerIndex, timerSequence.length, reset, start, pause]);
 
-    // Function to select a timer based on the tracker click
     const selectTimer = (index: number) => {
         setCurrentTimerIndex(index);
         reset();
@@ -50,13 +48,21 @@ const TimerSequence: React.FC = () => {
         start();
     };
 
+    const deleteTimer = (index: number) => {
+        setTimerSequence((prevSequence) => prevSequence.filter((_, i) => i !== index));
+        // Adjust the currentTimerIndex if necessary
+        if (index <= currentTimerIndex && currentTimerIndex > 0) {
+            setCurrentTimerIndex((prevIndex) => prevIndex - 1);
+        }
+    };
+
     useEffect(() => {
         const isCountdownComplete =
-            currentTimerConfig.type === "countdown" &&
+            currentTimerConfig?.type === "countdown" &&
             milliseconds >= (currentTimerConfig.initialTime ?? 0);
 
         const isTabataComplete =
-            currentTimerConfig.type === "tabata" &&
+            currentTimerConfig?.type === "tabata" &&
             (currentTimerConfig.rounds ?? 0) <= 0;
 
         if (isCountdownComplete || isTabataComplete) {
@@ -68,11 +74,9 @@ const TimerSequence: React.FC = () => {
         <div
             className={`${mainStyles.mainContainer} ${commonStyles.flexVertCenter} ${commonStyles.flexVert} ${commonStyles.flexHorzCenter}`}
         >
-
-
             {isSequenceRunning && (
                 <>
-                    {currentTimerConfig.type === "countdown" && (
+                    {currentTimerConfig?.type === "countdown" && (
                         <Countdown
                             initialTime={currentTimerConfig.initialTime ?? 0}
                             milliseconds={milliseconds}
@@ -82,7 +86,7 @@ const TimerSequence: React.FC = () => {
                             start={start}
                         />
                     )}
-                    {currentTimerConfig.type === "tabata" && (
+                    {currentTimerConfig?.type === "tabata" && (
                         <Tabata
                             totalRoundsExternal={currentTimerConfig.rounds}
                             workDurationExternal={currentTimerConfig.workDuration}
@@ -96,12 +100,18 @@ const TimerSequence: React.FC = () => {
                     )}
                 </>
             )}
-            <TButton classes={isSequenceRunning ? seqStyles.skip : ""} btnType="small-rect" label={isSequenceRunning ? "Skip" : "Start Sequence"} actionFunc={isSequenceRunning ? skipToNextTimer : startSequence} />
+            <TButton
+                classes={isSequenceRunning ? seqStyles.skip : ""}
+                btnType="small-rect"
+                label={isSequenceRunning ? "Skip" : "Start Sequence"}
+                actionFunc={isSequenceRunning ? skipToNextTimer : startSequence}
+            />
 
             <TimerTracker
                 timerSequence={timerSequence}
                 currentTimerIndex={currentTimerIndex}
                 onTimerSelect={selectTimer}
+                onDelete={deleteTimer} // Pass the delete function
             />
         </div>
     );

@@ -9,11 +9,10 @@ import CompletionMessage from '../../visualization/CompletionMessage/CompletionM
 import NumberedList from '../../NumberedList/NumberedList';
 import { formatTimerNumber } from '../../../utils/helpers';
 import stopwatchStyles from './Stopwatch.module.scss';
-import styles from '../timer-common.module.scss';
 import commonBtnStyles from '../../generic/Button/TButton.module.scss';
 import listStyles from '../../NumberedList/numberdList.module.scss';
 import MenuContainer from '../../menus/MenuContainer/MenuContainer.tsx';
-import NumberStepper from '../../generic/NumberStepper/NumberStepper.tsx';
+import StopwatchEditor from "../../ConfigurationViews/StopwatchEditor.tsx";
 
 interface StopWatchProps extends TimerFuncProps {
     milliseconds: number;
@@ -135,38 +134,16 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
             {/* Modal for Configuring Goal */}
             {isModalOpen && (
                 <Modal closeFunc={toggleModal} hasCloseBtn={true} title="Set Goal Time">
-                    <div className={styles.goalConfigInputs}>
-                        <div className={styles.steppersArea}>
-                            <NumberStepper
-                                label="Hours"
-                                value={goalHours}
-                                onChange={setGoalHours}
-                                min={0}
-                                max={100}
-                                step={1}
-                            />
-                            <NumberStepper
-                                label="Minutes"
-                                value={goalMinutes}
-                                onChange={setGoalMinutes}
-                                min={0}
-                                max={59}
-                                step={1}
-                            />
-                            <NumberStepper
-                                label="Seconds"
-                                value={goalSeconds}
-                                onChange={setGoalSeconds}
-                                min={0}
-                                max={59}
-                                step={1}
-                            />
-                        </div>
-                    </div>
-                    <div className={styles.modalBtns}>
-                        <TButton btnType="small-rect" actionFunc={applyGoalConfig} label="Apply" />
-                        <TButton btnType="small-rect" actionFunc={toggleModal} label="Cancel" />
-                    </div>
+                    <StopwatchEditor
+                        toggleModal={toggleModal}
+                        goalHours={goalHours}
+                        goalMinutes={goalMinutes}
+                        goalSeconds={goalSeconds}
+                        applyGoalConfig={applyGoalConfig}
+                        setGoalMinutes={setGoalMinutes}
+                        setGoalHours={setGoalHours}
+                        setGoalSeconds={setGoalSeconds}
+                    />
                 </Modal>
             )}
         </div>
