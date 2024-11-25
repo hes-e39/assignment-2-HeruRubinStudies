@@ -25,6 +25,43 @@
   align-content: center;
   flex-wrap: wrap;
   gap: 1rem;
+  section{
+    &:first-child{
+      border-radius: 10px 0 0 10px;
+    }
+    &:last-child{
+      border-radius: 0 10px 10px 0;
+    }
+  }
+}
+
+.nonTimeInputArea{
+  padding: 1rem;
+  background: #79cfec;
+
+}
+
+.nonTimeInputArea, .timeInputArea{
+  padding: 1.5rem 1rem;
+}
+
+.timeInputArea{
+  border: 1px dotted #79cfec;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  h3{
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    font-size: 1rem;
+    right: 0;
+    text-align: center;
+  }
+}
+
+.groupedInputs{
+  display: flex;
 }
 
 
@@ -38,12 +75,17 @@
   }
 }
 
+.noGap{
+  gap: 0;
+}
+
 .modalBtns{
   display: flex;
   justify-content: center;
   padding: 1.25rem;
   margin: 2rem -1.25rem -1.25rem -1.25rem;
   background-color: #5b5e71;
+  gap: 8px;
 }
 
 .actionArea{

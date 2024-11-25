@@ -108,16 +108,18 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
                 <Modal closeFunc={toggleModal} hasCloseBtn={true} title="Configure XY Timer">
                     <div className={commonTimerStyles.inputsArea}>
                         <div className={commonTimerStyles.steppersArea}>
+                            <div className={commonTimerStyles.nonTimeInputArea}>
+                                <NumberStepper
+                                    label="Rounds"
+                                    value={totalRounds}
+                                    onChange={(newValue: number) => setTotalRounds(newValue)}
+                                    min={1}
+                                    max={100}
+                                    step={1}
+                                />
+                            </div>
                             <NumberStepper
-                                label="Rounds"
-                                value={totalRounds}
-                                onChange={(newValue: number) => setTotalRounds(newValue)}
-                                min={1}
-                                max={100}
-                                step={1}
-                            />
-                            <NumberStepper
-                                label="Minutes per Round"
+                                label={<>Minutes<br/>per Round</>}
                                 value={roundMinutes}
                                 onChange={(newValue: number) => setRoundMinutes(newValue)}
                                 min={0}
@@ -125,7 +127,7 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
                                 step={1}
                             />
                             <NumberStepper
-                                label="Seconds per Round"
+                                label={<>Seconds<br/>per Round</>}
                                 value={roundSeconds}
                                 onChange={(newValue: number) => setRoundSeconds(newValue)}
                                 min={0}

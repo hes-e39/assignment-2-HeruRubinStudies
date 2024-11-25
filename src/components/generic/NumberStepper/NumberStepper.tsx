@@ -1,10 +1,11 @@
 import type React from "react";
+import type { ReactNode } from "react";
 import { useState, useEffect, useRef } from "react";
 import styles from "./NumberStepper.module.scss";
-import {formatTimerNumber} from "../../../utils/helpers.tsx";
+import { formatTimerNumber } from "../../../utils/helpers.tsx";
 
 interface NumberStepperProps {
-    label?: string;
+    label?: string | ReactNode;
     value: number; // Current value of the stepper
     onChange: (newValue: number) => void; // Function to update the value
     min?: number; // Minimum value
@@ -13,13 +14,13 @@ interface NumberStepperProps {
 }
 
 const NumberStepper: React.FC<NumberStepperProps> = ({
-                                                                     value,
-                                                                     onChange,
-                                                                     min = Number.NEGATIVE_INFINITY,
-                                                                     max = Number.POSITIVE_INFINITY,
-                                                                     step = 1,
-    label
-                                                                 }) => {
+                                                         value,
+                                                         onChange,
+                                                         min = Number.NEGATIVE_INFINITY,
+                                                         max = Number.POSITIVE_INFINITY,
+                                                         step = 1,
+                                                         label,
+                                                     }) => {
     const [isEditing, setIsEditing] = useState(false); // State to toggle between input and display mode
     const [localValue, setLocalValue] = useState(value); // Local state for handling the current value
     const inputRef = useRef<HTMLInputElement>(null); // Ref for the input field
@@ -49,7 +50,11 @@ const NumberStepper: React.FC<NumberStepperProps> = ({
 
     // Handle input change
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = Math.min(Math.max(Number(e.target.value), min), max);
+        let newValue = localValue ?? 0;
+        if (/^\d*$/.test(e.target.value)) {
+            // Allow only digits
+            newValue = Math.min(Math.max(Number(e.target.value), min), max);
+        }
         setLocalValue(newValue);
     };
 
@@ -67,18 +72,17 @@ const NumberStepper: React.FC<NumberStepperProps> = ({
         }
     };
 
+    // Focus and select all text in input when entering edit mode
     useEffect(() => {
         if (isEditing && inputRef.current) {
-            inputRef.current.focus(); // Focus the input field when entering edit mode
+            inputRef.current.focus();
+            inputRef.current.select(); // Select all text
         }
     }, [isEditing]);
 
     return (
         <div className={styles.numberStepperContainer}>
-            {
-                label &&
-                <div className={styles.label}>{label}</div>
-            }
+            {label && <div className={styles.label}>{label}</div>}
             <div className={styles.interactionArea}>
                 <button
                     className={styles.stepperButton}
@@ -88,19 +92,19 @@ const NumberStepper: React.FC<NumberStepperProps> = ({
                     ▲
                 </button>
                 {!isEditing ? (
-                    <div>
-                        <h2
-                            className={styles.valueDisplay}
-                            onClick={enterEditMode}
-                            aria-label="Click to edit value"
-                        >
+                    <div
+                        className={styles.clickableDisplay}
+                        onClick={enterEditMode}
+                        aria-label="Click to edit value"
+                    >
+                        <h2 className={styles.valueDisplay}>
                             {formatTimerNumber(localValue)}
                         </h2>
                     </div>
                 ) : (
                     <input
                         ref={inputRef}
-                        type="number"
+                        type="text"
                         value={localValue}
                         onChange={handleInputChange}
                         onBlur={handleInputBlur}
