@@ -12,9 +12,10 @@ interface CountDownEditorProps {
     setGoalSeconds: (newValue: number) => void;
     applyCustomConfig: () => void;
     toggleModal: () => void;
+    showMenu : boolean;
 }
 
-const CountdownEditor: React.FC<CountDownEditorProps> = ({ goalHours, setGoalHours, setGoalMinutes, goalMinutes, setGoalSeconds, goalSeconds, toggleModal, applyCustomConfig }) => {
+const CountdownEditor: React.FC<CountDownEditorProps> = ({ goalHours, setGoalHours, setGoalMinutes, goalMinutes, setGoalSeconds, goalSeconds, toggleModal, applyCustomConfig, showMenu }) => {
     return (
         <>
             <div className={commonTimerStyles.inputsArea}>
@@ -24,7 +25,9 @@ const CountdownEditor: React.FC<CountDownEditorProps> = ({ goalHours, setGoalHou
                     <NumberStepper label="Seconds" value={goalSeconds} onChange={(newValue: number) => setGoalSeconds(newValue)} min={0} max={59} step={1} />
                 </div>
             </div>
-            <ConfirmationMenu cancelLabel="Cancel" applyLabel="Apply" apply={applyCustomConfig} cancel={toggleModal} />
+            {
+                showMenu && <ConfirmationMenu cancelLabel="Cancel" applyLabel="Apply" apply={applyCustomConfig} cancel={toggleModal} />
+            }
         </>
     );
 };

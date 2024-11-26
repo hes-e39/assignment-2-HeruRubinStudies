@@ -16,9 +16,10 @@ interface TabataEditorProps{
     setBreakSeconds : (breakSeconds : number) => void;
     applyCustomConfig : () => void;
     toggleModal : () => void;
+    showMenu : boolean;
 }
 
-const TabataEditor: React.FC<TabataEditorProps> = ({totalRounds, setTotalRounds, setWorkMinutes, workMinutes, setWorkSeconds, workSeconds, setBreakMinutes, breakMinutes, setBreakSeconds, breakSeconds, applyCustomConfig, toggleModal}) => {
+const TabataEditor: React.FC<TabataEditorProps> = ({showMenu, totalRounds, setTotalRounds, setWorkMinutes, workMinutes, setWorkSeconds, workSeconds, setBreakMinutes, breakMinutes, setBreakSeconds, breakSeconds, applyCustomConfig, toggleModal}) => {
     return(
         <>
             <div className={`${commonTimerStyles.inputsArea}`}>
@@ -81,7 +82,9 @@ const TabataEditor: React.FC<TabataEditorProps> = ({totalRounds, setTotalRounds,
                     </section>
                 </div>
             </div>
-            <ConfirmationMenu cancelLabel="Cancel" applyLabel="Apply" apply={applyCustomConfig} cancel={toggleModal} />
+            {
+                showMenu && <ConfirmationMenu cancelLabel="Cancel" applyLabel="Apply" apply={applyCustomConfig} cancel={toggleModal} />
+            }
         </>
     )
 }

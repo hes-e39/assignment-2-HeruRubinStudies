@@ -12,9 +12,10 @@ interface StopwatchEditorProps {
     setGoalSeconds : (seconds : number) => void;
     applyCustomConfig : () => void;
     toggleModal : () => void;
+    showMenu : boolean;
 }
 
-const StopwatchEditor : React.FC <StopwatchEditorProps> = ({ applyCustomConfig, toggleModal, goalHours, setGoalHours, setGoalSeconds, goalSeconds, setGoalMinutes, goalMinutes}) => {
+const StopwatchEditor : React.FC <StopwatchEditorProps> = ({ showMenu, applyCustomConfig, toggleModal, goalHours, setGoalHours, setGoalSeconds, goalSeconds, setGoalMinutes, goalMinutes}) => {
     return(
         <>
             <div className={styles.goalConfigInputs}>
@@ -45,7 +46,10 @@ const StopwatchEditor : React.FC <StopwatchEditorProps> = ({ applyCustomConfig, 
                     />
                 </div>
             </div>
-            <ConfirmationMenu cancelLabel="Cancel" applyLabel="Apply" apply={applyCustomConfig} cancel={toggleModal} />
+            {
+                showMenu &&
+                <ConfirmationMenu cancelLabel="Cancel" applyLabel="Apply" apply={applyCustomConfig} cancel={toggleModal} />
+            }
         </>
     )
 }

@@ -1,24 +1,29 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import FormattedTimeDisplay from '../../visualization/FormattedTimeDisplay/FormattedTimeDisplay.tsx';
+import FormattedTimeDisplay from '../../visualization/FormattedTimeDisplay/FormattedTimeDisplay';
 import TimerControls from '../../menus/TimerControls/TimerControls';
-import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
 import Rounds from '../../visualization/Rounds/Rounds';
 import styles from './Tabata.module.scss';
 import commonTimerStyles from '../timer-common.module.scss';
-import Modal from '../../generic/Modal/ModalPopUp/Modal.tsx';
-import TButton from "../../generic/Button/TButton.tsx";
-import MenuContainer from "../../menus/MenuContainer/MenuContainer.tsx";
-import TabataEditor from "../../ConfigurationViews/TabataEditor.tsx";
+import Modal from '../../generic/Modal/ModalPopUp/Modal';
+import TButton from '../../generic/Button/TButton';
+import MenuContainer from '../../menus/MenuContainer/MenuContainer';
+import TabataEditor from '../../ConfigurationViews/TabataEditor';
+import type {TimerSequenceItem} from "../../../hooks/useTimer.tsx";
 
-interface TabataProps extends TimerFuncProps {
+interface TabataProps {
     milliseconds: number;
     isRunning: boolean;
-    classes?: string;
+    reset: () => void;
+    pause: () => void;
+    start: () => void;
+    index?: number; // Index in the sequence
+    updateTimer?: (index: number, updatedProperties: Partial<TimerSequenceItem>) => void; // Function to update the timer
     totalRoundsExternal?: number;
     workDurationExternal?: number;
     breakDurationExternal?: number;
-    onComplete?: () => void; // Notify parent of completion
+    classes?: string;
+    onComplete?: () => void;
 }
 
 const Tabata: React.FC<TabataProps> = ({
@@ -27,20 +32,22 @@ const Tabata: React.FC<TabataProps> = ({
                                            reset,
                                            pause,
                                            start,
+                                           index,
+                                           updateTimer,
+                                           totalRoundsExternal = 5,
+                                           workDurationExternal = 10000,
+                                           breakDurationExternal = 5000,
                                            classes,
-                                           totalRoundsExternal,
-                                           workDurationExternal,
-                                           breakDurationExternal,
                                            onComplete,
                                        }) => {
-    const [totalRounds, setTotalRounds] = useState(totalRoundsExternal ?? 5); // Default total rounds
-    const [workMinutes, setWorkMinutes] = useState(Math.floor((workDurationExternal ?? 10000) / 60000)); // Work minutes
-    const [workSeconds, setWorkSeconds] = useState(((workDurationExternal ?? 10000) % 60000) / 1000); // Work seconds
-    const [breakMinutes, setBreakMinutes] = useState(Math.floor((breakDurationExternal ?? 5000) / 60000)); // Break minutes
-    const [breakSeconds, setBreakSeconds] = useState(((breakDurationExternal ?? 5000) % 60000) / 1000); // Break seconds
+    const [totalRounds, setTotalRounds] = useState(totalRoundsExternal);
+    const [workMinutes, setWorkMinutes] = useState(Math.floor(workDurationExternal / 60000));
+    const [workSeconds, setWorkSeconds] = useState((workDurationExternal % 60000) / 1000);
+    const [breakMinutes, setBreakMinutes] = useState(Math.floor(breakDurationExternal / 60000));
+    const [breakSeconds, setBreakSeconds] = useState((breakDurationExternal % 60000) / 1000);
 
-    const [workDuration, setWorkDuration] = useState((workMinutes * 60 + workSeconds) * 1000); // Work duration in ms
-    const [breakDuration, setBreakDuration] = useState((breakMinutes * 60 + breakSeconds) * 1000); // Break duration in ms
+    const [workDuration, setWorkDuration] = useState(workDurationExternal);
+    const [breakDuration, setBreakDuration] = useState(breakDurationExternal);
 
     const [roundsLeft, setRoundsLeft] = useState(totalRounds);
     const [phase, setPhase] = useState<'Work' | 'Break'>('Work');
@@ -50,7 +57,6 @@ const Tabata: React.FC<TabataProps> = ({
     const [completedRounds, setCompletedRounds] = useState<number[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Reset Tabata timer state
     const resetTabata = () => {
         setRoundsLeft(totalRounds);
         setPhase('Work');
@@ -58,13 +64,11 @@ const Tabata: React.FC<TabataProps> = ({
         setRemainingTime(workDuration);
         setIsPomodoroStopped(false);
         setCompletedRounds([]);
-        reset(); // Reset external timer state
+        reset();
     };
 
-    // Toggle modal visibility
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-    // Apply custom configuration from modal
     const applyCustomConfig = () => {
         const updatedWorkDuration = (workMinutes * 60 + workSeconds) * 1000;
         const updatedBreakDuration = (breakMinutes * 60 + breakSeconds) * 1000;
@@ -72,18 +76,25 @@ const Tabata: React.FC<TabataProps> = ({
         setWorkDuration(updatedWorkDuration);
         setBreakDuration(updatedBreakDuration);
         setRoundsLeft(totalRounds);
-        resetTabata(); // Reset with new settings
-        setIsModalOpen(false); // Close the modal
+
+        // Update the timer in the sequence
+        if(updateTimer && index){
+            updateTimer(index, {
+                rounds: totalRounds,
+                workDuration: updatedWorkDuration,
+                breakDuration: updatedBreakDuration,
+            });
+        }
+
+        resetTabata();
+        setIsModalOpen(false);
     };
 
-    //control completion action
     useEffect(() => {
-        if(roundsLeft === 0 && remainingTime === 0){
-            onComplete!()
+        if (roundsLeft === 0 && remainingTime === 0) {
+            onComplete?.();
         }
     }, [roundsLeft, remainingTime, onComplete]);
-
-
 
     useEffect(() => {
         if (!isPomodoroStopped && isRunning) {
@@ -93,26 +104,21 @@ const Tabata: React.FC<TabataProps> = ({
 
             if (timeLeft <= 0) {
                 if (phase === 'Work') {
-                    // Transition to Break Phase
                     setPhase('Break');
                     setPhaseStartTime(milliseconds);
                     setRemainingTime(breakDuration);
                 } else {
                     if (roundsLeft > 1) {
-                        // Transition to Next Round
-                        setRoundsLeft(roundsLeft - 1);
+                        setRoundsLeft((prev) => prev - 1);
                         setCompletedRounds((prev) => [...prev, totalRounds - roundsLeft]);
                         setPhase('Work');
                         setPhaseStartTime(milliseconds);
                         setRemainingTime(workDuration);
                     } else {
-                        // Final Round Completed
                         setRoundsLeft(0);
                         setRemainingTime(0);
                         setIsPomodoroStopped(true);
-                        if (onComplete) {
-                            onComplete(); // Notify Parent
-                        }
+                        onComplete?.();
                     }
                 }
             } else {
@@ -132,12 +138,11 @@ const Tabata: React.FC<TabataProps> = ({
         onComplete,
     ]);
 
-
     return (
         <div className={`${styles.tabataContainer} ${classes ?? ''}`}>
             <>
                 <h2>
-                    <FormattedTimeDisplay size="large" useSemicolon={true} milliseconds={remainingTime} />
+                    <FormattedTimeDisplay size="large" useSemicolon milliseconds={remainingTime} />
                 </h2>
                 <TimerControls reset={resetTabata} isRunning={isRunning} pause={pause} start={start}>
                     <div className={commonTimerStyles.readout}>
@@ -163,8 +168,9 @@ const Tabata: React.FC<TabataProps> = ({
             </>
 
             {isModalOpen && (
-                <Modal closeFunc={toggleModal} hasCloseBtn={true} title="Configure Tabata Timer">
+                <Modal closeFunc={toggleModal} hasCloseBtn title="Configure Tabata Timer">
                     <TabataEditor
+                        showMenu={true}
                         setTotalRounds={setTotalRounds}
                         totalRounds={totalRounds}
                         setBreakMinutes={setBreakMinutes}
@@ -185,4 +191,3 @@ const Tabata: React.FC<TabataProps> = ({
 };
 
 export default Tabata;
-

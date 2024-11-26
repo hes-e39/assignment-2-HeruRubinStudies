@@ -12,9 +12,10 @@ interface XYEditorProps {
     setRoundSeconds : (roundSeconds : number) => void;
     applyCustomConfig : ()=>void;
     toggleModal : () => void;
+    showMenu : boolean;
 }
 
-const XYEditor: React.FC<XYEditorProps> = ({totalRounds, setTotalRounds, roundMinutes, setRoundMinutes, roundSeconds, setRoundSeconds, applyCustomConfig, toggleModal}) => {
+const XYEditor: React.FC<XYEditorProps> = ({showMenu, totalRounds, setTotalRounds, roundMinutes, setRoundMinutes, roundSeconds, setRoundSeconds, applyCustomConfig, toggleModal}) => {
     return(
         <>
             <div className={commonTimerStyles.inputsArea}>
@@ -47,7 +48,10 @@ const XYEditor: React.FC<XYEditorProps> = ({totalRounds, setTotalRounds, roundMi
                     />
                 </div>
             </div>
-            <ConfirmationMenu cancelLabel="Cancel" applyLabel="Apply" apply={applyCustomConfig} cancel={toggleModal} />
+            {
+                showMenu &&
+                <ConfirmationMenu cancelLabel="Cancel" applyLabel="Apply" apply={applyCustomConfig} cancel={toggleModal} />
+            }
         </>
     )
 }

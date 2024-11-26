@@ -1,6 +1,6 @@
-import { useState, useRef, useCallback  } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
-export type TimerType = 'countdown' | 'tabata';
+export type TimerType = 'countdown' | 'tabata' | 'stopwatch' | 'xy';
 
 export type TimerSequenceItem = {
     type: TimerType;
@@ -8,6 +8,8 @@ export type TimerSequenceItem = {
     rounds?: number;
     workDuration?: number;
     breakDuration?: number;
+    roundMinutes?: number;
+    roundSeconds?: number;
     label?: string;
 };
 
@@ -46,23 +48,40 @@ const useTimer = () => {
         setIsRunning(false);
     }, []);
 
-    const setTimerSequence = useCallback((newSequence: TimerSequenceItem[]) => {
-        setSequence(newSequence);
-        setCurrentIndex(0);
-        setIsSequenceMode(true);
-        reset();
-    }, [reset]);
+    const setTimerSequence = useCallback(
+        (newSequence: TimerSequenceItem[]) => {
+            setSequence(newSequence);
+            setCurrentIndex(0);
+            setIsSequenceMode(true);
+            reset();
+        },
+        [reset]
+    );
 
     const addTimer = useCallback((newTimer: TimerSequenceItem) => {
         setSequence((prev) => [...prev, newTimer]);
     }, []);
 
-    const deleteTimer = useCallback((index: number) => {
-        setSequence((prev) => prev.filter((_, i) => i !== index));
-        if (index <= currentIndex && currentIndex > 0) {
-            setCurrentIndex((prev) => prev - 1);
-        }
-    }, [currentIndex]);
+    const updateTimer = useCallback(
+        (index: number, updatedProperties: Partial<TimerSequenceItem>) => {
+            setSequence((prevSequence) =>
+                prevSequence.map((timer, i) =>
+                    i === index ? { ...timer, ...updatedProperties } : timer
+                )
+            );
+        },
+        []
+    );
+
+    const deleteTimer = useCallback(
+        (index: number) => {
+            setSequence((prev) => prev.filter((_, i) => i !== index));
+            if (index <= currentIndex && currentIndex > 0) {
+                setCurrentIndex((prev) => prev - 1);
+            }
+        },
+        [currentIndex]
+    );
 
     const nextTimer = useCallback(() => {
         if (currentIndex < sequence.length - 1) {
@@ -74,7 +93,17 @@ const useTimer = () => {
         }
     }, [currentIndex, sequence.length, reset, pause]);
 
-    // Handle completion of current timer
+    // Handle stopwatch goal time
+    useEffect(() => {
+        const currentTimer = sequence[currentIndex];
+        if (currentTimer?.type === 'stopwatch' && currentTimer.initialTime) {
+            if (milliseconds >= currentTimer.initialTime) {
+                pause();
+                nextTimer();
+            }
+        }
+    }, [milliseconds, sequence, currentIndex, pause, nextTimer]);
+
     const handleTimerCompletion = useCallback(() => {
         nextTimer();
     }, [nextTimer]);
@@ -86,6 +115,7 @@ const useTimer = () => {
         pause,
         reset,
         setTimerSequence,
+        updateTimer,
         addTimer,
         deleteTimer,
         nextTimer,
@@ -93,7 +123,7 @@ const useTimer = () => {
         currentIndex,
         sequence,
         handleTimerCompletion,
-        setCurrentIndex
+        setCurrentIndex,
     };
 };
 

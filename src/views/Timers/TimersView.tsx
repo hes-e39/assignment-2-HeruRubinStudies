@@ -11,7 +11,7 @@ import commonStyles from "../../common-styles/common-styles.module.scss"
 import mainStyles from "../../main.module.scss";
 
 
-export type timerType = "XY" | "stopwatch" | "countdown" | "tabata";
+export type timerType = "xy" | "stopwatch" | "countdown" | "tabata";
 
 const Timer: React.FC = () => {
     const tabMenuItems : MenuItem[] = [
@@ -36,7 +36,7 @@ const Timer: React.FC = () => {
             iconName: 'xy',
             onClick: () => {
                 reset()
-                setActiveTimer("XY")
+                setActiveTimer("xy")
             },
         },
         {
@@ -60,7 +60,7 @@ const Timer: React.FC = () => {
                 {activeTimer === "countdown" && (
                     <Countdown milliseconds={milliseconds} initialTime={6000} isRunning={isRunning}  start={start} pause={pause} reset={reset} />
                 )}
-                {activeTimer === "XY" && (
+                {activeTimer === "xy" && (
                     <XY milliseconds={milliseconds} isRunning={isRunning} start={start} pause={pause} reset={reset} />
                 )}
                 {activeTimer === "tabata" && (

@@ -5,7 +5,7 @@
   gap: 8px;
   margin: 16px 0;
   position: fixed;
-  height: 15vh;
+  height: 25vh;
   bottom: 0;
   left: 0;
   right: 0;
@@ -13,12 +13,25 @@
   padding: 0.5rem;
 }
 
+.timeOverviewContainer{
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+.totalTime{
+  display: flex;
+  h3{
+    margin-right: 0.5rem;
+  }
+}
+
 .trackerChipsArea{
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  flex-direction: row;
   gap: 1rem;
+  flex-direction: row;
+  overflow-x: auto;
 }
 
 .iconTrack {

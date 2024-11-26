@@ -33,7 +33,7 @@ const NavigationMenu: React.FC<MenuProps> = ({ children, actionFunc }) => {
                         </button>
                     ) : (
                         <button className={styles.menuButton} onClick={toggleMenu}>
-                            <Icon iconName="close-x" classes={styles.iconContainer} />
+                            <Icon iconName="close-x" classes={`${styles.iconContainer} ${styles.closeIcon}`} strokedClasses={styles.stroked} />
                         </button>
                     )}
                     <div className={styles.logoType}>

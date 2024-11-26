@@ -338,6 +338,7 @@ const Documentation = () => {
               title="Tabata Timer"
               component={
                   <Tabata
+                      index={1}
                       milliseconds={0}
                       isRunning={false}
                       reset={() => console.log("Reset Tabata")}
