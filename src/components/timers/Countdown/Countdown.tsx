@@ -2,15 +2,13 @@ import type React from 'react';
 import { useEffect, useState } from 'react';
 import FormattedTimeDisplay from '../../visualization/FormattedTimeDisplay/FormattedTimeDisplay.tsx';
 import TimerControls from '../../menus/TimerControls/TimerControls';
-import CompletionMessage from "../../visualization/CompletionMessage/CompletionMessage";
-
 import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
-import styles from './Countdown.module.scss';
-import commonTimerStyles from "../timer-common.module.scss";
-import Modal from "../../generic/Modal/Modal.tsx";
-import TButton from "../../generic/Button/TButton.tsx";
-import MenuContainer from "../../menus/MenuContainer/MenuContainer.tsx";
-import CountdownEditor from "../../ConfigurationViews/CountdownEditor.tsx";
+import commonTimerStyles from '../timer-common.module.scss';
+import Modal from '../../generic/Modal/ModalPopUp/Modal.tsx';
+import TButton from '../../generic/Button/TButton.tsx';
+import MenuContainer from '../../menus/MenuContainer/MenuContainer.tsx';
+import CountdownEditor from '../../ConfigurationViews/CountdownEditor.tsx';
+import ProgressBar from '../../visualization/ProgressBar/ProgressBar.tsx';
 
 interface CountdownProps extends TimerFuncProps {
     milliseconds: number;
@@ -20,41 +18,65 @@ interface CountdownProps extends TimerFuncProps {
     onComplete?: () => void;
 }
 
-const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialTime, reset, pause, start, classes, onComplete }) => {
-    const [customTime, setCustomTime] = useState(initialTime); // State to hold custom time input
-    const [remainingTime, setRemainingTime] = useState(customTime ?? initialTime);
+const Countdown: React.FC<CountdownProps> = ({
+                                                 milliseconds,
+                                                 isRunning,
+                                                 initialTime,
+                                                 reset,
+                                                 pause,
+                                                 start,
+                                                 classes,
+                                                 onComplete,
+                                             }) => {
+    const [customTime, setCustomTime] = useState(initialTime);
+    const [remainingTime, setRemainingTime] = useState(initialTime);
     const [isCountdownStopped, setIsCountdownStopped] = useState(false);
+    const [hasCompleted, setHasCompleted] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Separate states for hours, minutes, and seconds
-    const [goalHours, setGoalHours] = useState(0);
-    const [goalMinutes, setGoalMinutes] = useState(0);
-    const [goalSeconds, setGoalSeconds] = useState(0);
-
     // Calculate the progress as a percentage
-    const progressPercentage = (remainingTime / customTime) * 100;
+    const progressPercentage = Math.max((remainingTime / customTime) * 100, 0);
 
-    // Update the remaining time based on elapsed milliseconds
+    //control completion action
+    useEffect(() => {
+        if(remainingTime <= 0){
+            onComplete!()
+        }
+    }, [remainingTime, onComplete]);
+
+    useEffect(() => {
+        // Reset state when the initialTime changes
+        setCustomTime(initialTime);
+        setRemainingTime(initialTime);
+        setIsCountdownStopped(false);
+        setHasCompleted(false);
+    }, [initialTime]);
+
     useEffect(() => {
         if (!isCountdownStopped) {
             const timeLeft = customTime - milliseconds;
-            if (timeLeft < 0) {
-                setIsCountdownStopped(true);
+
+            if (timeLeft <= 0) {
                 setRemainingTime(0);
+                setIsCountdownStopped(true);
+
+                // Trigger onComplete only once
+                if (!hasCompleted && onComplete) {
+                    onComplete();
+                    setHasCompleted(true);
+                }
             } else {
                 setRemainingTime(timeLeft);
             }
         }
-        if (onComplete) {
-            onComplete();
-        }
-    }, [milliseconds, customTime, isCountdownStopped, onComplete]);
+    }, [milliseconds, customTime, isCountdownStopped, hasCompleted, onComplete]);
 
-    // Reset the countdown without starting it automatically
+    // Reset the countdown and all related states
     const resetCountdown = () => {
         setRemainingTime(customTime);
         setIsCountdownStopped(false);
-        reset(); // Reset external timer state without starting
+        setHasCompleted(false);
+        reset();
     };
 
     // Toggle modal visibility
@@ -63,52 +85,47 @@ const Countdown: React.FC<CountdownProps> = ({ milliseconds, isRunning, initialT
     // Apply new timer duration from custom input
     const applyCustomTime = () => {
         const totalMilliseconds =
-            goalHours * 3600000 + // Convert hours to milliseconds
-            goalMinutes * 60000 + // Convert minutes to milliseconds
-            goalSeconds * 1000; // Convert seconds to milliseconds
+            goalHours * 3600000 +
+            goalMinutes * 60000 +
+            goalSeconds * 1000;
 
-        setCustomTime(totalMilliseconds); // Update custom time
-        setRemainingTime(totalMilliseconds); // Update remaining time
+        setCustomTime(totalMilliseconds);
+        setRemainingTime(totalMilliseconds);
         setIsCountdownStopped(false);
-        reset(); // Reset external timer state
-        setIsModalOpen(false); // Close the modal
+        setHasCompleted(false);
+        reset();
+        setIsModalOpen(false);
     };
 
+    // Separate states for goal time configuration
+    const [goalHours, setGoalHours] = useState(0);
+    const [goalMinutes, setGoalMinutes] = useState(0);
+    const [goalSeconds, setGoalSeconds] = useState(0);
+
     return (
-        <div className={`${commonTimerStyles.timerContainer} ${classes ?? ""}`}>
-            {remainingTime >= 0 ? (
+        <div className={`${commonTimerStyles.timerContainer} ${classes ?? ''}`}>
+
                 <>
-                    <FormattedTimeDisplay milliseconds={remainingTime} size="large" useSemicolon={true} />
+                    <FormattedTimeDisplay milliseconds={remainingTime} size="large" useSemicolon />
                     <TimerControls reset={resetCountdown} isRunning={isRunning} pause={pause} start={start}>
-                        <div className={styles.countDownArea}>
-                            <div className={styles.progressBarContainer}>
-                                <div
-                                    className={styles.progressBar}
-                                    style={{ width: `${progressPercentage}%` }}
-                                />
-                            </div>
-                        </div>
+                        <ProgressBar progressPercentage={progressPercentage} />
                     </TimerControls>
                     <MenuContainer>
-                        <TButton actionFunc={toggleModal} classes={`${commonTimerStyles.config} `} btnType="small-rect" label="Configure" />
+                        <TButton
+                            actionFunc={toggleModal}
+                            classes={`${commonTimerStyles.config}`}
+                            btnType="small-rect"
+                            label="Configure"
+                        />
                     </MenuContainer>
                 </>
-            ) : (
-                <CompletionMessage
-                    totalRounds={1}
-                    roundDuration={customTime}
-                    onRepeat={() => {
-                        resetCountdown();
-                        start(); // Start the countdown only on explicit user action
-                    }}
-                />
-            )}
+
 
             {/* Modal for Configuring Timer */}
             {isModalOpen && (
                 <Modal title="Configure Countdown" closeFunc={toggleModal} hasCloseBtn={true}>
                     <CountdownEditor
-                        applyCustomTime={applyCustomTime}
+                        applyCustomConfig={applyCustomTime}
                         toggleModal={toggleModal}
                         setGoalHours={setGoalHours}
                         setGoalSeconds={setGoalSeconds}

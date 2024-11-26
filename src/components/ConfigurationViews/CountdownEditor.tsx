@@ -1,7 +1,7 @@
 import commonTimerStyles from '../timers/timer-common.module.scss';
 import NumberStepper from '../generic/NumberStepper/NumberStepper.tsx';
-import TButton from '../generic/Button/TButton.tsx';
 import type React from 'react';
+import ConfirmationMenu from "../menus/ConfirmationMenu/ModalConfirmation.tsx";
 
 interface CountDownEditorProps {
     goalHours: number;
@@ -10,11 +10,11 @@ interface CountDownEditorProps {
     setGoalMinutes: (newValue: number) => void;
     goalSeconds: number;
     setGoalSeconds: (newValue: number) => void;
-    applyCustomTime: () => void;
+    applyCustomConfig: () => void;
     toggleModal: () => void;
 }
 
-const CountdownEditor: React.FC<CountDownEditorProps> = ({ goalHours, setGoalHours, setGoalMinutes, goalMinutes, setGoalSeconds, goalSeconds, toggleModal, applyCustomTime }) => {
+const CountdownEditor: React.FC<CountDownEditorProps> = ({ goalHours, setGoalHours, setGoalMinutes, goalMinutes, setGoalSeconds, goalSeconds, toggleModal, applyCustomConfig }) => {
     return (
         <>
             <div className={commonTimerStyles.inputsArea}>
@@ -24,10 +24,7 @@ const CountdownEditor: React.FC<CountDownEditorProps> = ({ goalHours, setGoalHou
                     <NumberStepper label="Seconds" value={goalSeconds} onChange={(newValue: number) => setGoalSeconds(newValue)} min={0} max={59} step={1} />
                 </div>
             </div>
-            <div className={commonTimerStyles.modalBtns}>
-                <TButton btnType="small-rect" label="Apply" actionFunc={applyCustomTime} />
-                <TButton btnType="small-rect" label="Cancel" actionFunc={toggleModal} />
-            </div>
+            <ConfirmationMenu cancelLabel="Cancel" applyLabel="Apply" apply={applyCustomConfig} cancel={toggleModal} />
         </>
     );
 };

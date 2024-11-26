@@ -1,4 +1,5 @@
 import type React from "react";
+import type {ReactNode} from "react";
 import styles from "./TButton.module.scss";
 import Icon from "../../Icons/Icon.tsx";
 import type {iconGraphic} from "../../Icons/Icon.tsx";
@@ -9,7 +10,7 @@ export interface TButtonProps {
     flair? : "shimmer";
     hoverAni? : "grow"
     actionFunc? : ()=>void;
-    label? : string;
+    label? : string | ReactNode;
     icon? : iconGraphic;
     classes? : string;
     iconClasses? : {classes? : string, fillClass? : string, strokeClass? : string};

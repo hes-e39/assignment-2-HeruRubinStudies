@@ -3,9 +3,8 @@ import { useState, useEffect } from 'react';
 import FormattedTimeDisplay from '../../visualization/FormattedTimeDisplay/FormattedTimeDisplay.tsx';
 import TimerControls from '../../menus/TimerControls/TimerControls';
 import type { TimerFuncProps } from '../../menus/TimerControls/TimerControls';
-import Modal from '../../generic/Modal/Modal';
+import Modal from '../../generic/Modal/ModalPopUp/Modal.tsx';
 import TButton from '../../generic/Button/TButton';
-import CompletionMessage from '../../visualization/CompletionMessage/CompletionMessage';
 import NumberedList from '../../NumberedList/NumberedList';
 import { formatTimerNumber } from '../../../utils/helpers';
 import stopwatchStyles from './Stopwatch.module.scss';
@@ -58,78 +57,69 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
         setIsGoalReached(false); // Reset goal reached state
     };
 
-    const resetAndRepeat = () => {
-        reset();
-        setIsGoalReached(false);
-        start(); // Automatically start the stopwatch again
-    };
-
     return (
         <div className={`${stopwatchStyles.stopwatchContainer} ${classes ?? ''}`}>
-            {!isGoalReached ? (
-                <>
-                    <FormattedTimeDisplay milliseconds={milliseconds} size="large" useSemicolon />
-                    <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
-                        <div className={stopwatchStyles.lapsControlsArea}>
+            <>
+            {isGoalReached}
+                <FormattedTimeDisplay milliseconds={milliseconds} size="large" useSemicolon />
+                <TimerControls reset={reset} isRunning={isRunning} pause={pause} start={start}>
+                    <div className={stopwatchStyles.lapsControlsArea}>
+                        <TButton
+                            iconClasses={{
+                                classes: `${commonBtnStyles.darkOnLight}`,
+                                fillClass: commonBtnStyles.filled,
+                                strokeClass: commonBtnStyles.stroked,
+                            }}
+                            classes={`${commonBtnStyles.config}`}
+                            btnType="small-rect"
+                            label="Lap"
+                            icon="plus"
+                            actionFunc={addLap}
+                        />
+                    </div>
+                </TimerControls>
+
+                <MenuContainer>
+                    <div className={stopwatchStyles.goalReadout}>
+                        {goalTime > 0 ? (
+                            <>
+                                <span className={stopwatchStyles.goalText}>Goal:</span> <FormattedTimeDisplay milliseconds={goalTime} useSemicolon={false} mode="units" size="small" />
+                                <TButton classes={commonBtnStyles.config} btnType="small-rect" label="Edit" actionFunc={toggleModal} />
+                            </>
+                        ) : (
+                            <TButton classes={commonBtnStyles.config} btnType="small-rect" label="Set Goal" actionFunc={toggleModal} />
+                        )}
+                    </div>
+                </MenuContainer>
+
+                {/*laps display*/}
+                {laps.length > 0 && (
+                    <div className={stopwatchStyles.lapsContainer}>
+                        <ul className={stopwatchStyles.lapList}>
+                            <NumberedList presets="light-on-dark" classes={stopwatchStyles.lapList} listItems={laps.slice(0, 3)} />
+                            {laps.length > 3 && (
+                                <li className={`${listStyles.item} ${listStyles.lightOnDark}`}>
+                                    <span className={`${listStyles.label}`}>{laps.length - 3} more laps</span>
+                                </li>
+                            )}
+                        </ul>
+                        <div className={stopwatchStyles.lapActionsArea}>
+                            {laps.length > 3 && <TButton classes={commonBtnStyles.config} btnType="small-rect" label="View All" actionFunc={toggleModal} />}
                             <TButton
+                                classes={`${commonBtnStyles.config}`}
                                 iconClasses={{
                                     classes: `${commonBtnStyles.darkOnLight}`,
-                                    fillClass: commonBtnStyles.filled,
                                     strokeClass: commonBtnStyles.stroked,
                                 }}
-                                classes={`${commonBtnStyles.config}`}
                                 btnType="small-rect"
-                                label="Lap"
-                                icon="plus"
-                                actionFunc={addLap}
+                                label="Clear"
+                                icon="close-x"
+                                actionFunc={clearLaps}
                             />
                         </div>
-                    </TimerControls>
-
-                    <MenuContainer>
-                        <div className={stopwatchStyles.goalReadout}>
-                            {goalTime > 0 ? (
-                                <>
-                                    <span className={stopwatchStyles.goalText}>Goal:</span> <FormattedTimeDisplay milliseconds={goalTime} useSemicolon={false} mode="units" size="small" />
-                                    <TButton classes={commonBtnStyles.config} btnType="small-rect" label="Edit" actionFunc={toggleModal} />
-                                </>
-                            ) : (
-                                <TButton classes={commonBtnStyles.config} btnType="small-rect" label="Set Goal" actionFunc={toggleModal} />
-                            )}
-                        </div>
-                    </MenuContainer>
-
-                    {/*laps display*/}
-                    {laps.length > 0 && (
-                        <div className={stopwatchStyles.lapsContainer}>
-                            <ul className={stopwatchStyles.lapList}>
-                                <NumberedList presets="light-on-dark" classes={stopwatchStyles.lapList} listItems={laps.slice(0, 3)} />
-                                {laps.length > 3 && (
-                                    <li className={`${listStyles.item} ${listStyles.lightOnDark}`}>
-                                        <span className={`${listStyles.label}`}>{laps.length - 3} more laps</span>
-                                    </li>
-                                )}
-                            </ul>
-                            <div className={stopwatchStyles.lapActionsArea}>
-                                {laps.length > 3 && <TButton classes={commonBtnStyles.config} btnType="small-rect" label="View All" actionFunc={toggleModal} />}
-                                <TButton
-                                    classes={`${commonBtnStyles.config}`}
-                                    iconClasses={{
-                                        classes: `${commonBtnStyles.darkOnLight}`,
-                                        strokeClass: commonBtnStyles.stroked,
-                                    }}
-                                    btnType="small-rect"
-                                    label="Clear"
-                                    icon="close-x"
-                                    actionFunc={clearLaps}
-                                />
-                            </div>
-                        </div>
-                    )}
-                </>
-            ) : (
-                <CompletionMessage totalRounds={1} roundDuration={goalTime} onRepeat={resetAndRepeat} />
-            )}
+                    </div>
+                )}
+            </>
 
             {/* Modal for Configuring Goal */}
             {isModalOpen && (
@@ -139,7 +129,7 @@ const StopWatch: React.FC<StopWatchProps> = ({ milliseconds, isRunning, reset, p
                         goalHours={goalHours}
                         goalMinutes={goalMinutes}
                         goalSeconds={goalSeconds}
-                        applyGoalConfig={applyGoalConfig}
+                        applyCustomConfig={applyGoalConfig}
                         setGoalMinutes={setGoalMinutes}
                         setGoalHours={setGoalHours}
                         setGoalSeconds={setGoalSeconds}

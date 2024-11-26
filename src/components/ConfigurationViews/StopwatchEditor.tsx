@@ -1,7 +1,7 @@
 import styles from "../timers/timer-common.module.scss";
 import NumberStepper from "../generic/NumberStepper/NumberStepper.tsx";
-import TButton from "../generic/Button/TButton.tsx";
 import type React from "react";
+import ConfirmationMenu from "../menus/ConfirmationMenu/ModalConfirmation.tsx";
 
 interface StopwatchEditorProps {
     goalHours : number;
@@ -10,11 +10,11 @@ interface StopwatchEditorProps {
     setGoalMinutes : (minutes : number) => void;
     goalSeconds: number;
     setGoalSeconds : (seconds : number) => void;
-    applyGoalConfig : () => void;
+    applyCustomConfig : () => void;
     toggleModal : () => void;
 }
 
-const StopwatchEditor : React.FC <StopwatchEditorProps> = ({ applyGoalConfig, toggleModal, goalHours, setGoalHours, setGoalSeconds, goalSeconds, setGoalMinutes, goalMinutes}) => {
+const StopwatchEditor : React.FC <StopwatchEditorProps> = ({ applyCustomConfig, toggleModal, goalHours, setGoalHours, setGoalSeconds, goalSeconds, setGoalMinutes, goalMinutes}) => {
     return(
         <>
             <div className={styles.goalConfigInputs}>
@@ -45,10 +45,7 @@ const StopwatchEditor : React.FC <StopwatchEditorProps> = ({ applyGoalConfig, to
                     />
                 </div>
             </div>
-            <div className={styles.modalBtns}>
-                <TButton btnType="small-rect" actionFunc={applyGoalConfig} label="Apply"/>
-                <TButton btnType="small-rect" actionFunc={toggleModal} label="Cancel"/>
-            </div>
+            <ConfirmationMenu cancelLabel="Cancel" applyLabel="Apply" apply={applyCustomConfig} cancel={toggleModal} />
         </>
     )
 }

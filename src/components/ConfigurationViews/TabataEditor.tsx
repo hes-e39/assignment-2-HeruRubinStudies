@@ -1,7 +1,7 @@
 import type React from "react";
 import commonTimerStyles from "../timers/timer-common.module.scss";
 import NumberStepper from "../generic/NumberStepper/NumberStepper.tsx";
-import TButton from "../generic/Button/TButton.tsx";
+import ConfirmationMenu from "../menus/ConfirmationMenu/ModalConfirmation.tsx";
 
 interface TabataEditorProps{
     totalRounds : number;
@@ -81,10 +81,7 @@ const TabataEditor: React.FC<TabataEditorProps> = ({totalRounds, setTotalRounds,
                     </section>
                 </div>
             </div>
-            <div className={commonTimerStyles.modalBtns}>
-                <TButton btnType="small-rect" actionFunc={applyCustomConfig} label="Apply"/>
-                <TButton btnType="small-rect" actionFunc={toggleModal} label="Cancel"/>
-            </div>
+            <ConfirmationMenu cancelLabel="Cancel" applyLabel="Apply" apply={applyCustomConfig} cancel={toggleModal} />
         </>
     )
 }

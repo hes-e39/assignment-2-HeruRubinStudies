@@ -5,8 +5,7 @@ import FormattedTimeDisplay from "../../visualization/FormattedTimeDisplay/Forma
 import TimerControls from "../../menus/TimerControls/TimerControls";
 import type { TimerFuncProps } from "../../menus/TimerControls/TimerControls";
 import Rounds from "../../visualization/Rounds/Rounds";
-import CompletionMessage from "../../visualization/CompletionMessage/CompletionMessage";
-import Modal from "../../generic/Modal/Modal";
+import Modal from "../../generic/Modal/ModalPopUp/Modal.tsx";
 import TButton from "../../generic/Button/TButton.tsx";
 import MenuContainer from "../../menus/MenuContainer/MenuContainer.tsx";
 import XYEditor from "../../ConfigurationViews/XYeditor.tsx";
@@ -76,32 +75,24 @@ const XY: React.FC<XYTimerProps> = ({ milliseconds, isRunning, reset, pause, sta
 
     return (
         <div className={`${commonTimerStyles.timerContainer} ${classes ?? ""}`}>
-            {roundsLeft > 0 ? (
-                <>
-                    <FormattedTimeDisplay milliseconds={remainingTime} useSemicolon={true} size="large" />
-                    <TimerControls reset={resetXY} isRunning={isRunning} pause={pause} start={start}>
-                        <div className={commonTimerStyles.readout}>
-                            <h2>Rounds Left: {roundsLeft}</h2>
-                            <Rounds
-                                completedRounds={completedRounds}
-                                roundsLeft={roundsLeft}
-                                totalRounds={totalRounds}
-                                workDuration={roundDuration}
-                                remainingTime={remainingTime}
-                            />
-                        </div>
-                    </TimerControls>
-                    <MenuContainer>
-                        <TButton label="Configure" btnType="small-rect" classes={commonTimerStyles.config} actionFunc={toggleModal} />
-                    </MenuContainer>
-                </>
-            ) : (
-                <CompletionMessage
-                    totalRounds={totalRounds}
-                    roundDuration={roundDuration}
-                    onRepeat={resetXY}
-                />
-            )}
+            <>
+                <FormattedTimeDisplay milliseconds={remainingTime} useSemicolon={true} size="large" />
+                <TimerControls reset={resetXY} isRunning={isRunning} pause={pause} start={start}>
+                    <div className={commonTimerStyles.readout}>
+                        <h2>Rounds Left: {roundsLeft}</h2>
+                        <Rounds
+                            completedRounds={completedRounds}
+                            roundsLeft={roundsLeft}
+                            totalRounds={totalRounds}
+                            workDuration={roundDuration}
+                            remainingTime={remainingTime}
+                        />
+                    </div>
+                </TimerControls>
+                <MenuContainer>
+                    <TButton label="Configure" btnType="small-rect" classes={commonTimerStyles.config} actionFunc={toggleModal} />
+                </MenuContainer>
+            </>
 
             {/* Modal for Configuring Timer */}
             {isModalOpen && (

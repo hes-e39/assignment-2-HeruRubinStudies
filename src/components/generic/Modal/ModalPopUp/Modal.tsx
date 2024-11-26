@@ -1,8 +1,6 @@
 import type React from 'react';
-import TButton from '../Button/TButton.tsx';
+import TButton from '../../Button/TButton.tsx';
 import styles from './Modal.module.scss';
-
-
 
 export interface ModalProps {
     children: React.ReactNode;

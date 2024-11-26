@@ -8,7 +8,7 @@ import TimersView from './views/Timers/TimersView.tsx';
 import DocumentationView from './views/Documentation/DocumentationView.tsx';
 import NavMenu from './components/menus/NavMenu/NavMenu.tsx';
 import ListMenu from './components/menus/ListMenu/ListMenu.tsx';
-import TimerSequence from "./components/TimerSequence/TimerSequence.tsx";
+import TimerSequence from "./views/TimerSequence/TimerSequence.tsx";
 
 const PageIndex = () => {
     return (
