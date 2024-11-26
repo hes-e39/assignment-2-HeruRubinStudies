@@ -1,0 +1,54 @@
+.mainContainer{
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+.timerArea{
+  min-width: 60%;
+}
+
+.spacer{
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.skip{
+  right: 0;
+  border-radius: 100vw 0 0 100vw;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 10vh;
+  width: 8vw;
+}
+
+
+.navListMenu{
+  z-index: 100;
+  li{
+    &:hover{
+      a{
+        color: #0d1117;
+      }
+      svg g{
+        stroke: #0d1117;
+      }
+      svg rect{
+        fill: #0d1117;
+      }
+    }
+  }
+  li a{
+    color: white;
+  }
+  svg{
+    margin-right: 1rem;
+  }
+  svg g{
+    stroke: white;
+  }
+  svg rect{
+    fill: white;
+  }
+}

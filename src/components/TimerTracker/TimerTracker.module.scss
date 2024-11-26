@@ -1,0 +1,175 @@
+.trackerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0;
+  position: fixed;
+  height: 25vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(34, 50, 74, 0.05) 25%, transparent);
+  padding: 0.5rem;
+}
+
+.timeOverviewContainer{
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+.totalTime{
+  display: flex;
+  h3{
+    margin-right: 0.5rem;
+  }
+}
+
+.trackerChipsArea{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: row;
+  overflow-x: auto;
+}
+
+.iconTrack {
+  height: 2rem;
+  width: 2rem;
+
+  .filled {
+    fill: none !important;
+  }
+
+  .stroked {
+    stroke: white;
+    stroke-width: 2px;
+  }
+}
+
+
+.sequenceItem {
+  width: 100px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.timerSquare {
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+
+  h1, h2 {
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  h2 {
+    font-size: 0.75rem;
+    margin: 4px 4px 2px 4px;
+  }
+
+  .labelArea {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0d1117;
+    padding: 4px 6px;
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+    }
+  }
+
+  .indicator {
+    position: relative;
+    padding: 4px 2px;
+    background-color: #0d1117;
+    h2 {
+      color: white;
+      z-index: 11;
+      position: relative;
+    }
+
+    .activeIndicator {
+      visibility: hidden;
+      background-color: #2BB9E5;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: top 0.3s;
+    }
+  }
+
+  .completeIndicator {
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    bottom: 50%;
+    right: 50%;
+    opacity: 0;
+  }
+  .incomplete{
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+}
+
+.timerSquare.active {
+  .indicator {
+    color: #0d1117;
+    .activeIndicator {
+      visibility: visible;
+      background-color: #2BB9E5;
+      top: 0;
+    }
+  }
+}
+
+.timerSquare.completed {
+  .incomplete{
+    opacity: 0;
+  }
+
+ .completeIndicator {
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   opacity: 1;
+   border: 1px solid #7d8090;
+ }
+
+  .completedMark{
+    transition: all 0.3s;
+  }
+}
+
+
+.completedMark{
+  position: absolute;
+}
+.completedStroke{
+  stroke-width: 2px;
+  stroke: #1a8bb8;
+  fill: none;
+}

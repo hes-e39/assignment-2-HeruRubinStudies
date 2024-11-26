@@ -12,6 +12,9 @@ export default ({ mode }) => {
 
     return defineConfig({
         base,
+        build: {
+            outDir: 'dist',
+        },
         plugins: [
             react(),
             checker({

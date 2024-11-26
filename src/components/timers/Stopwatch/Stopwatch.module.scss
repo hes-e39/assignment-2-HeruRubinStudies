@@ -1,0 +1,92 @@
+.stopwatch-container {
+  text-align: center;
+  position: relative;
+}
+
+.lapsControlsArea{
+  display: flex;
+  flex-direction: column;
+}
+
+.lapsContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
+.lapActionsArea{
+  display: flex;
+  gap: 0.25rem;
+}
+
+.lap-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.menuContainer{
+  display: flex;
+  color: white;
+  padding: 1rem 2rem 1rem 2rem;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  .goalReadout{
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .bg{
+    position: absolute;
+    inset: -100% 0 0 0;
+    background-color: #1c1f30;
+    border-radius: 0 0 0.5rem 0.5rem;
+    z-index: 10;
+    border: 1px solid #3d3d48;
+  }
+}
+
+.extra-laps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.extra-laps button {
+  margin-left: 8px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background-color: #2BB9E5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #1a8bb8;
+  }
+}
+
+.allLapsList{
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+  overflow-y: auto;
+  max-height: 30vh;
+  li{
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+}
+
+

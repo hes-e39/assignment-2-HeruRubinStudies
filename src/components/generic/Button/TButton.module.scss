@@ -1,0 +1,152 @@
+.btnBase{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+
+
+
+.darkOnLight{
+  .icon{
+    .filled{
+      fill: white;
+    }
+    .stroked{
+      stroke: white;
+    }
+  }
+}
+
+.lightOnDark{
+  .icon{
+    .filled{
+      fill:white;
+    }
+    .stroked{
+      stroke: white;
+    }
+  }
+}
+.strokedIcon{
+  stroke: white;
+}
+
+.rectBtnLarge {
+  padding: 10px 20px;
+  background-color: #2BB9E5;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #1a8bb8;
+  }
+}
+
+.roundSmallButton{
+  padding: .5rem;
+  border-radius: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2BB9E5;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
+  &:hover {
+    background-color: #1a8bb8;
+  }
+}
+
+.roundLarge{
+  font-weight: bold;
+  color: black;
+  background: linear-gradient(135deg, rgba(26,139,184,1) 0%, rgba(43,185,229,1) 43%, rgba(0,212,255,1) 70%, rgba(26,139,184,1) 100%);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(43, 185, 229, 0.7), 0 0 20px rgba(43, 185, 229, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.rectBtnSmall{
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  border: 1px solid rgba(99, 99, 99, 0.35);
+  background: white;
+  .labelArea{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: left;
+    span{
+      margin-top: 2px;
+    }
+  }
+  .icon{
+    height: 1rem;
+    width: 1rem;
+    margin-left: 0.25rem;
+  }
+}
+
+.rectBtnMed{
+
+}
+
+.growAni{
+  &:hover {
+    transform: scale(1.35);
+  }
+}
+
+.icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.config{
+  border-radius: 100vw;
+  background: #2a2e47;
+  color: white;
+  padding: 0.5rem 1rem;
+}
+
+
+.bounce{
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -200%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.shimmer{
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -200%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 43%, rgba(255, 255, 255, 0.1) 70%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg);
+    opacity: 0.6;
+    animation: shimmer 2.5s infinite;
+  }
+}
+

@@ -1,0 +1,36 @@
+.item{
+
+  .number{
+    margin-right: 4px;
+    color: #dce4ed;
+    font-weight: bold;
+    padding: 4px;
+  }
+
+  .number, .label{
+    font-size: 14px;
+  }
+
+  &.darkOnLight{
+    .number{
+      color: #0d1117;
+    }
+    .label{
+      color: #0d1117;
+    }
+  }
+
+  &.lightOnDark{
+    .number{
+      color: #dce4ed;
+    }
+    .label{
+      color: white;
+    }
+
+  }
+}
+
+.label{
+  color: white;
+}

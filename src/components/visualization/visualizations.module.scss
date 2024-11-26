@@ -1,0 +1,56 @@
+.roundSquare {
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-end;
+  flex-wrap: wrap;
+  border-radius: 0.15rem;
+  overflow: hidden;
+
+  &.large{
+    width: 4vw;
+    height: calc(4vw* 1.25);
+  }
+
+  &.medium{
+    width: 4vw;
+    height: 40px;
+  }
+
+  &.small{
+    width: 5px;
+    height: 10px;
+  }
+
+
+}
+
+.roundsDisplay {
+  display: flex;
+  margin: 10px 0;
+  flex-wrap: wrap;
+  &.large{
+    gap: 8px;
+  }
+  &.medium{
+    gap: 4px;
+  }
+  &.small{
+    gap: 2px;
+  }
+}
+
+.roundIndicator {
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 100%;
+  transition: height 0.3s;
+}
+
+.completedRound {
+  .roundIndicator {
+    display: none;
+  }
+}

@@ -1,0 +1,61 @@
+@import url("https://use.typekit.net/vot3lau.css");
+:root {
+  --color-main-bg: #1a202c;
+  --color-secondary: #2d3748;
+  --color-accent: #9bd5d0;
+
+  --full-radius: 100vw;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #2a2e47;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+ul, li, p, h1, h2, h3, h4, button, input, section, article, main {
+  padding: 0;
+  margin: 0;
+}
+
+ul{
+  list-style: none;
+}
+
+h2, h1, h3, button, span{
+  font-family: "articulat-cf", sans-serif;
+  font-style: normal;
+  user-select: none;
+}
+
+h2, button, span{
+  font-weight: 400;
+}
+.hvy{
+  font-family: "articulat-heavy-cf", sans-serif;
+  font-weight: 900;
+}
+
+button{
+  text-transform: uppercase;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}

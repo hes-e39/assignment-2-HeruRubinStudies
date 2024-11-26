@@ -1,0 +1,23 @@
+.menuContainer{
+  display: flex;
+  color: white;
+  padding: 1rem 2rem 1rem 2rem;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  .goalReadout{
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .bg{
+    position: absolute;
+    inset: -100% 0 0 0;
+    background-color: #1c1f30;
+    border-radius: 0 0 0.5rem 0.5rem;
+    z-index: 10;
+    border: 1px solid #3d3d48;
+  }
+}

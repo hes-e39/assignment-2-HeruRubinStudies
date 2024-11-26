@@ -1,0 +1,90 @@
+.primaryStrokeColor{
+  stroke: #010101;
+}
+
+.medColor{
+  stroke: #374665;
+}
+
+.filledPrimary{
+  fill: #010101;
+}
+
+.filledHighlight{
+  fill: white;
+}
+
+.filledSecondary{
+  fill: #374665;
+}
+
+.selectedIcon{
+  .primaryStrokeColor{
+    stroke: #2BB9E5;
+  }
+
+  .filledPrimary{
+    fill: #2BB9E5;
+  }
+}
+
+.icon{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.strokedHeavy{
+  stroke-width: 8px;
+}
+
+.stroked {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: #010101;
+}
+
+.strokeThin{
+  stroke-width: 1px;
+}
+
+.strokeMed{
+  stroke-width: 2px;
+}
+
+.strokeThick{
+  stroke-width: 5px;
+}
+
+.filledHighlight{
+  fill : white;
+}
+
+.cls-1 {
+  fill: #fff;
+}
+
+.cls-1, .brandSecondary {
+  stroke: #010101;
+}
+
+.cls-1, .brandSecondary, .cls-3 {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2px;
+}
+
+.brandSecondary, .cls-3 {
+  fill: none;
+}
+
+.cls-3 {
+  stroke: #49b749;
+}
+
+.cls-4 {
+  fill: #010101;
+}

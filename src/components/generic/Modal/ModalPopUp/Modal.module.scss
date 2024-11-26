@@ -1,0 +1,74 @@
+.modalOverlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.closeBtn{
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  transform: translate(50%, -50%);
+  transition: transform 0.3s;
+  .iconStroke{
+    stroke: #0d1117;
+  }
+  &:hover {
+    transform: translate(50%, -50%) rotate(180deg) scale(1.25);
+  }
+  &:active{
+    transform: translate(50%, -50%) rotate(0deg) scale(.9);
+  }
+}
+
+.titleBar{
+  display: flex;
+  position: relative;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0 20px 0 20px;
+  h2{
+    font-size: 3vw;
+  }
+}
+
+.modalMenuItems{
+  position: relative;
+  min-width: 60%;
+  min-height: 60%;
+}
+
+.modalContainer{
+  position:relative;
+  overflow-y: auto;
+}
+.modalContent{
+  background: white;
+  position: relative;
+  color: #0d1117;
+  padding: 10px 20px 20px 20px;
+  border-radius: 8px;
+  min-width: 200px;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  h2 {
+    margin: 0;
+    display: flex;
+  }
+}
+
+
+
+

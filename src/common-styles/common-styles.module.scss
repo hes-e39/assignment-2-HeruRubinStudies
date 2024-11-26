@@ -1,0 +1,61 @@
+.flexVert {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexVertCenter {
+  align-items: center;
+}
+
+.flexHorzCenter{
+  justify-content: center;
+}
+
+.large{
+  font-size: 10vw;
+  .number{
+    font-family: "itc-avant-garde-gothic-pro", sans-serif;
+  }
+}
+
+
+.medium{
+  .number{
+    font-size: 1rem;
+    margin-left: 0.5rem;
+  }
+  .units{
+    font-size: 0.75rem;
+    margin-left: 2px;
+    margin-bottom: 1px;
+  }
+}
+
+.timerDisplay {
+  z-index: 200;
+  position: relative;
+  align-items: flex-end;
+  text-align: center;
+  font-family: itc-avant-garde-gothic-pro, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: white;
+  display: flex;
+  justify-content: center;
+  span{
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
+  }
+}
+
+.dataFont{
+  font-family: "itc-avant-garde-gothic-pro", sans-serif;
+  font-style: normal;
+}
+
+.fontBold{
+  font-weight: 700;
+}
+
+.fontBook{
+  font-weight: 300;
+}

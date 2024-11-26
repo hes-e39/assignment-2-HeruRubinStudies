@@ -1,0 +1,96 @@
+.readout{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  h2{
+    font-weight: 300;
+    font-size: 1rem;
+    margin: 0.25rem;
+  }
+}
+
+.config{
+  border-radius: 100vw;
+  background: #2a2e47;
+  color: white;
+  padding: 0.5rem 1rem;
+}
+
+.steppersArea{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  section{
+    &:first-child{
+      border-radius: 10px 0 0 10px;
+    }
+    &:last-child{
+      border-radius: 0 10px 10px 0;
+    }
+  }
+}
+
+.nonTimeInputArea{
+  padding: 1rem;
+  background: #79cfec;
+
+}
+
+.nonTimeInputArea, .timeInputArea{
+  padding: 1.5rem 1rem;
+}
+
+.timeInputArea{
+  border: 1px dotted #79cfec;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  h3{
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    font-size: 1rem;
+    right: 0;
+    text-align: center;
+  }
+}
+
+.groupedInputs{
+  display: flex;
+}
+
+
+.inputsArea{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  label{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.noGap{
+  gap: 0;
+}
+
+
+.actionArea{
+  background: linear-gradient(225deg, #f0f0f0, #cacaca);
+  box-shadow:  -20px 20px 60px #bebebe, 20px -20px 60px #ffffff;
+  border-radius: 100vw;
+}
+
+.timerContainer{
+  text-align: center;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}

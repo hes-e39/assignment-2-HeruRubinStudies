@@ -1,0 +1,82 @@
+.closeIcon{
+  .stroked{
+    stroke: #0d1117;
+  }
+}
+
+.navigationContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  width: 250px;
+  padding: 5px 20px 5px 5px;
+  z-index: 1000;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin-top: 1rem;
+}
+
+.logoArea{
+  display: flex;
+  align-items: center;
+}
+.logoType{
+  height: 3rem;
+  padding: 9px 0 0 10px;
+}
+
+
+
+.menuButton {
+  position: relative;
+  z-index: 1000;
+  cursor: pointer;
+  background-color: white;
+  height: 3rem;
+  width: 6rem;
+  margin-right: 10px;
+  border-radius: 4px;
+  padding: 0.5rem 0;
+  border: 1px solid #424d69;
+  &:hover{
+    border: 1px solid #2BB9E5;
+  }
+}
+
+.menuBG{
+  position: absolute;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background-color: #596a8c;
+  z-index: 1;
+  &.open {
+    left: 0;
+  }
+}
+
+.menuBG, .menu{
+  transition: left 0.3s ease;
+}
+
+.menu {
+  position: fixed;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: transparent;
+  color: #fff;
+  &.open {
+    left: 0;
+  }
+
+  p {
+    padding: 15px 20px;
+    border-bottom: 1px solid #444;
+  }
+}
+
+.iconContainer {
+  font-size: 24px;
+  color: #fff;
+}
